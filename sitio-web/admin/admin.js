@@ -47,7 +47,7 @@
   }
   function mensajeError(e) {
     var m = (e && (e.message || e.error_description)) || String(e);
-    if (/row-level security|permission denied/i.test(m)) return "Tu cuenta no tiene permisos de administrador para esta acción.";
+    if (/row-level security|permission denied|Unauthorized/i.test(m)) return "Supabase rechazó la acción por permisos (" + m + "). Si eres admin, ejecuta supabase/03_parche_fotos.sql.";
     if (/Invalid login credentials/i.test(m)) return "Correo o contraseña incorrectos.";
     if (/Email not confirmed/i.test(m)) return "El correo aún no está confirmado. En Supabase, al crear el usuario marca “Auto Confirm User”.";
     if (/Failed to fetch|NetworkError/i.test(m)) return "Sin conexión con la base de datos. Revisa tu internet o la URL en js/config.js.";
@@ -425,8 +425,9 @@
 
   async function subirFoto(destinoId, blob, nombreBase) {
     var ext = (blob.type === "image/png") ? "png" : (blob.type === "image/webp") ? "webp" : "jpg";
-    var ruta = destinoId + "/" + (nombreBase || (Date.now() + "-" + Math.random().toString(36).slice(2, 8))) + "." + ext;
-    var up = await sb.storage.from(BUCKET).upload(ruta, blob, { contentType: blob.type || "image/jpeg", cacheControl: "31536000", upsert: true });
+    // Nombre único: así no hace falta reemplazar archivos (upsert) al subir fotos nuevas
+    var ruta = destinoId + "/" + (nombreBase || "foto") + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8) + "." + ext;
+    var up = await sb.storage.from(BUCKET).upload(ruta, blob, { contentType: blob.type || "image/jpeg", cacheControl: "31536000", upsert: false });
     if (up.error) throw up.error;
     return { ruta_storage: ruta, url: sb.storage.from(BUCKET).getPublicUrl(ruta).data.publicUrl };
   }

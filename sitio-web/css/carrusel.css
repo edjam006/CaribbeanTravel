@@ -1,0 +1,65 @@
+/* Carrusel automático — Caribbean Travel */
+.carrusel {
+  margin: 0;
+}
+
+.carrusel .carrusel-marco {
+  position: relative;
+  overflow: hidden;
+  /* Ajusta la proporción si quieres la foto más alta o más ancha */
+  aspect-ratio: var(--carrusel-proporcion, 1.08 / 1);
+  background: #e9e4dc;
+}
+
+/* Enlace al paquete que envuelve la foto */
+.carrusel .carrusel-enlace {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.carrusel .carrusel-enlace[href] {
+  cursor: pointer;
+}
+
+.carrusel .carrusel-enlace[href] .carrusel-foto {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.carrusel .carrusel-enlace[href]:hover .carrusel-foto.activa {
+  transform: scale(1.03);
+}
+
+.carrusel .carrusel-enlace:focus-visible {
+  outline: 2px solid #e07a2e;
+  outline-offset: 4px;
+}
+
+/* Selector doble para ganarle a estilos como ".hero-foto img" */
+.carrusel .carrusel-marco .carrusel-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.carrusel .carrusel-marco .carrusel-foto.activa {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carrusel .carrusel-marco .carrusel-foto,
+  .carrusel .carrusel-enlace[href] .carrusel-foto {
+    transition: none;
+  }
+
+  .carrusel .carrusel-enlace[href]:hover .carrusel-foto.activa {
+    transform: none;
+  }
+}
