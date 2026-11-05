@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Destino · Caribbean Travel</title>
+  <meta name="description" content="Paquetes de viaje desde Quito con asesoría personalizada por WhatsApp.">
+  <link rel="icon" href="img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <nav class="contenedor nav" aria-label="Principal">
+    <a class="marca" href="index.html"><img src="img/logo.png" alt=""><span>CARIBBEAN TRAVEL</span></a>
+    <div class="nav-links">
+      <a href="index.html#destinos">← Todos los destinos</a>
+      <a class="btn btn-borde btn-fav" href="index.html#destinos" aria-label="Mis favoritos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+        <span data-contador-favs>0</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main id="pagina-destino" aria-busy="true">
+  <section class="contenedor" style="padding-top:56px">
+    <div class="seccion-cabeza" style="margin:0">
+      <div>
+        <p class="eyebrow" id="d-ruta">&nbsp;</p>
+        <h1 class="titulo t-xl" style="margin:12px 0" id="d-nombre">Cargando…</h1>
+        <p class="texto-suave" style="margin:0;font-size:20px" id="d-frase"></p>
+      </div>
+      <button type="button" class="btn btn-borde btn-fav" data-fav-pagina aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+        <span>Guardar</span>
+      </button>
+    </div>
+    <div class="galeria" id="d-galeria"></div>
+  </section>
+
+  <section class="contenedor paquete">
+    <div class="paquete-info">
+      <div class="incluye" id="d-incluye"></div>
+
+      <div>
+        <h2 class="titulo t-m" style="margin-bottom:16px">Qué vas a vivir</h2>
+        <p class="texto-suave" style="max-width:640px;font-size:17px;margin:0" id="d-descripcion"></p>
+      </div>
+
+      <div id="d-itinerario-bloque" hidden>
+        <h2 class="titulo t-m" style="margin-bottom:20px">Itinerario sugerido</h2>
+        <div id="d-itinerario"></div>
+      </div>
+    </div>
+
+    <aside id="reserva" class="reserva" aria-label="Reserva">
+      <div>
+        <span class="texto-suave" style="font-size:13px" id="r-precio-label">Desde, por persona</span>
+        <div class="precio" id="r-precio">—</div>
+      </div>
+      <fieldset id="r-fechas-bloque" hidden>
+        <legend id="r-fechas-titulo">ELIGE TU SALIDA</legend>
+        <div id="fechas" class="fechas"></div>
+      </fieldset>
+      <div class="fila">
+        <span>Viajeros</span>
+        <div class="contador">
+          <button type="button" id="menos" aria-label="Quitar un viajero">−</button>
+          <output id="viajeros" aria-live="polite">2</output>
+          <button type="button" id="mas" aria-label="Agregar un viajero">+</button>
+        </div>
+      </div>
+      <div class="fila" id="fila-total">
+        <span class="texto-suave">Total estimado</span>
+        <span id="total" class="total">—</span>
+      </div>
+      <a id="cta-reservar" class="btn btn-principal" href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+      <p class="nota">Un asesor confirma disponibilidad, impuestos y condiciones por WhatsApp.</p>
+    </aside>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div>
+      <strong style="letter-spacing:.32em;font-size:13px;color:#172D38">CARIBBEAN TRAVEL</strong><br>
+      Av. América y Villalengua, Edificio Módulos PB · Quito<br>
+      +593 98 762 0947
+    </div>
+    <div class="pie-redes">
+      <a href="https://instagram.com/caribbeantravelec/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com/@caribbean.travelec" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://facebook.com/profile.php?id=61572452146585" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-flotante" href="#" data-wa="Hola, quiero información para viajar" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.5.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="js/datos.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

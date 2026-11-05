@@ -1,0 +1,22 @@
+name = "caribbean-travel-bot"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Versión de la API de Meta
+GRAPH_VERSION = "v25.0"
+# Número del asesor humano al que el bot deriva (sin + ni espacios)
+ASESOR_WHATSAPP = "593987620947"
+# Supabase (los mismos datos de sitio-web/js/config.js; la clave publishable es pública)
+SUPABASE_URL = "sb_publishable_dyPSlVnPN5mbUDuldMHhVA_LPN_fo5a"
+SUPABASE_KEY = "sb_publishable_dyPSlVnPN5mbUDuldMHhVA_LPN_fo5a"
+
+# Tarea diaria: mantiene activo el proyecto gratuito de Supabase (08:17 hora de Ecuador)
+[triggers]
+crons = ["17 13 * * *"]
+
+# Los secretos NO van aquí. Se cargan con:
+#   npx wrangler secret put WHATSAPP_TOKEN
+#   npx wrangler secret put PHONE_NUMBER_ID
+#   npx wrangler secret put VERIFY_TOKEN
+#   npx wrangler secret put APP_SECRET

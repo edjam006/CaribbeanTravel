@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel de destinos · Caribbean Travel</title>
+  <link rel="icon" href="../img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../css/estilos.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+
+<header class="cabecera">
+  <nav class="contenedor nav" aria-label="Administración">
+    <a class="marca" href="../index.html" target="_blank" rel="noopener"><img src="../img/logo.png" alt=""><span>CARIBBEAN TRAVEL</span></a>
+    <div class="nav-links" id="barra-sesion" hidden>
+      <span class="adm-usuario" id="usuario-email"></span>
+      <a href="../index.html" target="_blank" rel="noopener">Ver sitio ↗</a>
+      <button type="button" class="btn btn-borde" id="btn-salir">Salir</button>
+    </div>
+  </nav>
+</header>
+
+<main class="contenedor adm-main">
+
+  <!-- Cargando -->
+  <section id="vista-cargando" class="adm-centro"><p class="texto-suave">Cargando…</p></section>
+
+  <!-- Falta configuración -->
+  <section id="vista-config" class="adm-centro" hidden>
+    <div class="adm-caja">
+      <p class="eyebrow">Configuración pendiente</p>
+      <h1 class="titulo t-m">Conecta la base de datos</h1>
+      <p class="texto-suave">Abre <code>js/config.js</code> y pega la <b>Project URL</b> y la <b>Publishable key</b> de tu proyecto de Supabase. Luego recarga esta página.</p>
+    </div>
+  </section>
+
+  <!-- Login -->
+  <section id="vista-login" class="adm-centro" hidden>
+    <form class="adm-caja" id="form-login" novalidate>
+      <p class="eyebrow">Acceso administrador</p>
+      <h1 class="titulo t-m">Panel de destinos</h1>
+      <label class="campo">Correo<input type="email" name="email" autocomplete="username" required></label>
+      <label class="campo">Contraseña<input type="password" name="password" autocomplete="current-password" required></label>
+      <p class="adm-error" id="login-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-principal adm-ancho">Entrar</button>
+      <button type="button" class="adm-enlace" id="btn-olvide">¿Olvidaste tu contraseña?</button>
+    </form>
+  </section>
+
+  <!-- Nueva contraseña (al volver desde el correo de recuperación) -->
+  <section id="vista-nueva-clave" class="adm-centro" hidden>
+    <form class="adm-caja" id="form-nueva-clave" novalidate>
+      <p class="eyebrow">Recuperar acceso</p>
+      <h1 class="titulo t-m">Nueva contraseña</h1>
+      <label class="campo">Nueva contraseña (mínimo 8 caracteres)<input type="password" name="password" minlength="8" autocomplete="new-password" required></label>
+      <p class="adm-error" id="clave-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-principal adm-ancho">Guardar contraseña</button>
+    </form>
+  </section>
+
+  <!-- Sin permisos -->
+  <section id="vista-noadmin" class="adm-centro" hidden>
+    <div class="adm-caja">
+      <p class="eyebrow">Sin permisos</p>
+      <h1 class="titulo t-m">Esta cuenta no es administradora</h1>
+      <p class="texto-suave">Pide que agreguen tu correo con el archivo <code>supabase/02_crear_admin.sql</code>.</p>
+    </div>
+  </section>
+
+  <!-- Lista de destinos -->
+  <section id="vista-lista" hidden>
+    <div class="adm-cabeza">
+      <div>
+        <p class="eyebrow">Administración</p>
+        <h1 class="titulo t-l">Destinos</h1>
+      </div>
+      <div class="adm-acciones">
+        <label class="adm-buscar"><span class="visually-hidden">Buscar destino</span>
+          <input type="search" id="buscar" placeholder="Buscar destino…"></label>
+        <button type="button" class="btn btn-principal" id="btn-nuevo">+ Nuevo destino</button>
+      </div>
+    </div>
+
+    <div class="adm-migrar" id="caja-migrar" hidden>
+      <div>
+        <h2>Importar los destinos actuales</h2>
+        <p class="texto-suave" id="migrar-texto">La base de datos está vacía. Puedes cargar los destinos que ya tiene el sitio, con sus fotos, precios y fechas.</p>
+      </div>
+      <button type="button" class="btn btn-principal" id="btn-migrar">Importar destinos iniciales</button>
+    </div>
+
+    <p class="texto-suave" id="lista-resumen"></p>
+    <ul class="adm-lista" id="lista"></ul>
+  </section>
+
+  <!-- Editor -->
+  <section id="vista-editor" hidden>
+    <form id="form-destino" novalidate>
+      <div class="adm-cabeza">
+        <div>
+          <button type="button" class="adm-enlace" id="btn-volver">← Volver a destinos</button>
+          <h1 class="titulo t-l" id="editor-titulo">Nuevo destino</h1>
+        </div>
+        <div class="adm-acciones">
+          <button type="button" class="btn btn-borde adm-peligro" id="btn-borrar-editor" hidden>Borrar</button>
+          <button type="submit" class="btn btn-principal" id="btn-guardar">Guardar destino</button>
+        </div>
+      </div>
+
+      <div class="adm-editor">
+        <div class="adm-col">
+
+          <fieldset class="adm-bloque">
+            <legend>Información principal</legend>
+            <div class="adm-fila">
+              <label class="campo">Nombre del destino *<input name="nombre" maxlength="80" required placeholder="Ej. Cartagena"></label>
+              <label class="campo">País<input name="pais" maxlength="60" placeholder="Ej. Colombia"></label>
+            </div>
+            <label class="campo">Dirección de la página
+              <span class="adm-slug"><span>destino.html?d=</span><input name="slug" maxlength="60" pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="cartagena"></span>
+            </label>
+            <label class="campo">Frase corta (tarjeta) <input name="frase" maxlength="90" placeholder="Ej. Ciudad amurallada e islas del Rosario"></label>
+            <label class="campo">Descripción · "Qué vas a vivir"<textarea name="descripcion" rows="4" maxlength="1200" placeholder="Qué incluye el paquete, hotel, traslados…"></textarea></label>
+            <div class="campo" role="group" aria-labelledby="lbl-cat">
+              <span id="lbl-cat">Categorías (para los filtros)</span>
+              <div class="adm-checks" id="categorias"></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Fotos</legend>
+            <p class="adm-ayuda">La primera es la portada. Se comprimen solas antes de subir (máx. 1600 px). Recomendado: 2 a 4 fotos horizontales.</p>
+            <div class="adm-fotos" id="fotos"></div>
+            <label class="adm-subir">
+              <input type="file" id="input-fotos" accept="image/jpeg,image/png,image/webp" multiple>
+              <span>+ Agregar fotos</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Qué incluye</legend>
+            <p class="adm-ayuda">Ej. Bodega · 23 kg, De mano · 10 kg, Hotel · 3 noches.</p>
+            <div id="incluye" class="adm-filas"></div>
+            <button type="button" class="adm-enlace" id="btn-add-incluye">+ Agregar elemento</button>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Itinerario sugerido</legend>
+            <div id="itinerario" class="adm-filas"></div>
+            <button type="button" class="adm-enlace" id="btn-add-dia">+ Agregar día</button>
+          </fieldset>
+        </div>
+
+        <div class="adm-col adm-col-lateral">
+          <fieldset class="adm-bloque">
+            <legend>Precio y viaje</legend>
+            <label class="campo">Precio desde, por persona (USD)<input name="precio" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Vacío = Consultar precio"></label>
+            <label class="campo">Ruta<input name="ruta" maxlength="80" placeholder="Quito — Cartagena — Quito"></label>
+            <label class="campo">Aerolínea<input name="aerolinea" maxlength="60"></label>
+            <label class="campo">Etiqueta de la tarjeta<input name="etiqueta" maxlength="30" placeholder="Ej. Últimos cupos"></label>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Salidas confirmadas</legend>
+            <div class="adm-fecha-nueva">
+              <label class="campo">Fecha<input type="date" id="input-fecha"></label>
+              <button type="button" class="btn btn-borde" id="btn-add-fecha">Agregar</button>
+            </div>
+            <ul class="adm-chips" id="salidas"></ul>
+            <p class="adm-ayuda">Las fechas pasadas no se muestran en el sitio.</p>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Publicación</legend>
+            <label class="adm-switch"><input type="checkbox" name="publicado" checked><span>Publicado (visible en el sitio)</span></label>
+            <label class="adm-switch"><input type="checkbox" name="destacado"><span>Destacado en "Salidas confirmadas" de la portada</span></label>
+            <label class="campo">Orden en la portada (menor = primero)<input name="orden" type="number" step="1" value="0"></label>
+          </fieldset>
+        </div>
+      </div>
+      <p class="adm-error" id="editor-error" role="alert" hidden></p>
+    </form>
+  </section>
+</main>
+
+<div class="adm-toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/datos.js"></script>
+<script src="../js/api.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

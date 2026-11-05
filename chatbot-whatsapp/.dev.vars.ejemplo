@@ -1,0 +1,4 @@
+WHATSAPP_TOKEN=pega_tu_token_temporal
+PHONE_NUMBER_ID=pega_el_id_del_numero
+VERIFY_TOKEN=inventa_una_clave
+APP_SECRET=pega_la_clave_secreta_de_la_app

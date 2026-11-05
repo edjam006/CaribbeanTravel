@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caribbean Travel · Paquetes y vuelos desde Ecuador</title>
+  <meta name="description" content="Agencia de viajes en Quito. Paquetes a Panamá, Cartagena, Punta Cana, Galápagos y más, con asesoría personalizada por WhatsApp.">
+  <meta property="og:title" content="Caribbean Travel · Viajar, con otra mirada">
+  <meta property="og:description" content="Paquetes, vuelos y viajes a medida desde Ecuador.">
+  <meta property="og:image" content="img/panama-casco.jpg">
+  <link rel="icon" href="img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <nav class="contenedor nav" aria-label="Principal">
+    <a class="marca" href="index.html"><img src="img/logo.png" alt=""><span>CARIBBEAN TRAVEL</span></a>
+    <div class="nav-links">
+      <a class="solo-escritorio" href="#destinos">Destinos</a>
+      <a class="solo-escritorio" href="#salidas">Salidas confirmadas</a>
+      <a class="solo-escritorio" href="#como">Cómo funciona</a>
+      <a class="solo-escritorio" href="#faq">Preguntas</a>
+      <button type="button" class="btn btn-borde btn-fav" data-ver-favs aria-pressed="false" aria-label="Ver mis favoritos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+        <span data-contador-favs>0</span>
+      </button>
+      <a class="btn btn-principal" href="#" data-wa="Hola, quiero planificar un viaje">Hablar con un asesor</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="contenedor hero" id="inicio">
+    <div class="hero-texto">
+      <p class="eyebrow">Agencia de viajes · Quito</p>
+      <h1 class="titulo t-xl">Viajar, con<br>otra mirada.</h1>
+      <p class="texto-suave">Paquetes, vuelos y viajes a medida desde Ecuador. Tú eliges las fechas; nosotros cuidamos el resto, desde la reserva hasta tu regreso.</p>
+    </div>
+    <figure class="hero-foto">
+      <img src="img/panama-casco.jpg" alt="Calle del Casco Antiguo de Panamá con balcones y flores">
+      <figcaption>CASCO ANTIGUO · PANAMÁ</figcaption>
+    </figure>
+  </section>
+
+  <!-- Buscador -->
+  <section class="contenedor" aria-label="Buscador">
+    <div class="buscador">
+      <div class="pestanas" role="tablist">
+        <button type="button" class="chip" role="tab" aria-selected="true" data-pestana="Paquete">Paquetes</button>
+        <button type="button" class="chip" role="tab" aria-selected="false" data-pestana="Solo vuelo">Solo vuelos</button>
+        <button type="button" class="chip" role="tab" aria-selected="false" data-pestana="Viaje a medida">Viaje a medida</button>
+      </div>
+      <form id="form-buscar" class="campos">
+        <label class="campo">Desde<input name="desde" type="text" value="Quito (UIO)"></label>
+        <label class="campo" style="flex-grow:1.4">¿A dónde?<input name="destino" type="text" placeholder="Panamá, Cartagena, Galápagos…" list="lista-destinos"></label>
+        <label class="campo">Fechas<input name="fechas" type="text" placeholder="Ida — vuelta"></label>
+        <label class="campo" style="flex-grow:.8">Viajeros<input name="viajeros" type="text" value="2 adultos"></label>
+        <button id="btn-buscar" class="btn btn-principal" type="submit">Buscar paquetes</button>
+        <datalist id="lista-destinos"></datalist>
+      </form>
+    </div>
+  </section>
+
+  <!-- Destinos -->
+  <section class="contenedor seccion" id="destinos">
+    <div class="seccion-cabeza">
+      <div>
+        <p class="eyebrow">Escapadas 2026</p>
+        <h2 class="titulo t-l" style="margin-top:8px">¿Qué te provoca?</h2>
+      </div>
+      <p id="cuenta-destinos" class="texto-suave" style="margin:0"></p>
+    </div>
+    <div class="filtros">
+      <button type="button" class="chip" data-filtro="todos" aria-pressed="true">Todos</button>
+      <button type="button" class="chip" data-filtro="playa" aria-pressed="false">Playa</button>
+      <button type="button" class="chip" data-filtro="ciudad" aria-pressed="false">Ciudad</button>
+      <button type="button" class="chip" data-filtro="naturaleza" aria-pressed="false">Naturaleza</button>
+      <button type="button" class="chip" data-filtro="sabores" aria-pressed="false">Gastronomía</button>
+      <button type="button" class="chip" data-filtro="cerca" aria-pressed="false">A pocas horas</button>
+    </div>
+    <div id="grilla-destinos" class="grilla" aria-live="polite"></div>
+  </section>
+
+  <!-- Salidas confirmadas -->
+  <section class="salidas" id="salidas" hidden>
+    <div class="contenedor">
+      <div class="seccion-cabeza" style="margin:0">
+        <div style="max-width:620px">
+          <p class="eyebrow" id="salidas-eyebrow">Salidas confirmadas</p>
+          <h2 class="titulo t-l" style="margin:10px 0" id="salidas-titulo"></h2>
+          <p class="texto-suave" style="margin:0" id="salidas-detalle"></p>
+        </div>
+        <a class="btn btn-claro" id="salidas-enlace" href="#">Ver el paquete completo</a>
+      </div>
+      <div id="carril-salidas" class="carril"></div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section class="contenedor seccion" id="como">
+    <h2 class="titulo t-l">Planificar es así de simple.</h2>
+    <div class="pasos">
+      <div class="paso"><span>01</span><h3>Elige destino y fechas</h3><p>Explora, guarda tus favoritos y compara salidas sin compromiso.</p></div>
+      <div class="paso"><span>02</span><h3>Recibe tu cotización</h3><p>Un asesor te escribe por WhatsApp con opciones de vuelo y hotel.</p></div>
+      <div class="paso"><span>03</span><h3>Paga y viaja tranquilo</h3><p>Transferencia, depósito o link de pago. Te acompañamos hasta tu regreso.</p></div>
+    </div>
+  </section>
+
+  <!-- Opiniones -->
+  <section class="contenedor seccion" aria-label="Opiniones">
+    <div class="opiniones">
+      <figure class="opinion"><blockquote>“Me ayudaron en mi viaje de vacaciones con mi familia a Panamá.”</blockquote><figcaption>Juan · Panamá</figcaption></figure>
+      <figure class="opinion"><blockquote>“Las mejores vacaciones en Galápagos. Sin duda volvería a viajar con ellos.”</blockquote><figcaption>Francisco · Galápagos</figcaption></figure>
+      <figure class="opinion"><blockquote>“El equipo humano detrás de la agencia es increíble.”</blockquote><figcaption>Margarita</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="contenedor seccion" id="faq">
+    <div class="faq">
+      <h2 class="titulo t-m" style="margin-bottom:24px">Preguntas frecuentes</h2>
+      <details><summary>¿Cómo empiezo a planificar mi viaje?</summary><p>Solo necesitas tus fechas. Escríbenos y te damos las mejores opciones para tu destino favorito.</p></details>
+      <details><summary>¿Cómo pago mi paquete o boleto?</summary><p>Por transferencia bancaria, depósito o link de pago.</p></details>
+      <details><summary>¿Atienden grupos?</summary><p>Sí. Para grupos de más de 10 personas preparamos una oferta especial.</p></details>
+      <details><summary>¿Qué soporte tengo durante el viaje?</summary><p>Te acompañamos desde la reserva hasta el final del viaje, estés donde estés.</p></details>
+      <details><summary>¿Puedo cambiar mi paquete?</summary><p>Una vez pagado al 100 % no se puede modificar; los cambios pueden generar multas de hotel o aerolínea.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div>
+      <strong style="letter-spacing:.32em;font-size:13px;color:#172D38">CARIBBEAN TRAVEL</strong><br>
+      Av. América y Villalengua, Edificio Módulos PB · Quito<br>
+      +593 98 762 0947
+    </div>
+    <div class="pie-redes">
+      <a href="https://instagram.com/caribbeantravelec/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com/@caribbean.travelec" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://facebook.com/profile.php?id=61572452146585" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-flotante" href="#" data-wa="Hola, quiero información para viajar" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.5.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="js/datos.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
