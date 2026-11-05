@@ -139,7 +139,7 @@
     PASAJEROS: [
       { id: "adultos", nombre: "Adultos", detalle: "", uno: "adulto", varios: "adultos", inicial: 2 },
       { id: "ninos", nombre: "Niños", detalle: "Menores de 11 años", uno: "niño menor de 11 años", varios: "niños menores de 11 años", inicial: 0 },
-      { id: "mayores", nombre: "Adultos mayores", detalle: "", uno: "adulto mayor", varios: "adultos mayores", inicial: 0 }
+      { id: "mayores", nombre: "Adultos mayores", detalle: "Más de 65 años", uno: "adulto mayor de 65 años", varios: "adultos mayores de 65 años", inicial: 0 }
     ],
     precioPasajero: function (d, tipo) {
       if (d.precio == null) return null;

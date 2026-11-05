@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/estilos.css">
   <link rel="stylesheet" href="css/registro.css">
   <link rel="stylesheet" href="css/carrusel.css">
+  <link rel="stylesheet" href="css/seguro.css">
 </head>
 <body>
 
@@ -24,6 +25,7 @@
     <div class="nav-links">
       <a class="solo-escritorio" href="#destinos">Destinos</a>
       <a class="solo-escritorio" href="#salidas">Salidas confirmadas</a>
+      <a class="solo-escritorio" href="#seguro">Seguro de viaje</a>
       <a class="solo-escritorio" href="#como">Cómo funciona</a>
       <a class="solo-escritorio" href="#faq">Preguntas</a>
       <button type="button" class="btn btn-borde btn-fav" data-ver-favs aria-pressed="false" aria-label="Ver mis favoritos">
@@ -46,19 +48,19 @@
     </div>
 
     <!-- CARRUSEL: fotos en img/carrusel/ como 1.jpg, 2.jpg, 3.jpg...
-         Leyendas en el mismo orden, separadas por | (opcional) -->
-         <figure class="hero-foto carrusel" data-carrusel
-         data-carpeta="img/carrusel/"
-         data-intervalo="2000"
-         data-leyendas="CASCO ANTIGUO · PANAMÁ | CARTAGENA · COLOMBIA | GALAPAGOS · ECUADOR"
-         data-enlaces="paquete-panama.html | destino.html?d=cartagena | destino.html?d=galapagos">
-          <a class="carrusel-enlace" href="paquete-panama.html">
-            <div class="carrusel-marco">
-              <img class="carrusel-foto activa" src="img/panama-casco.jpg" alt="Calle del Casco Antiguo de Panamá con balcones y flores">
-            </div>
-          </a>
-            <figcaption class="carrusel-leyenda">CASCO ANTIGUO · PANAMÁ</figcaption>
-          </figure>
+         Leyendas y enlaces en el mismo orden, separados por | -->
+    <figure class="hero-foto carrusel" data-carrusel
+            data-carpeta="img/carrusel/"
+            data-intervalo="2000"
+            data-leyendas="CASCO ANTIGUO · PANAMÁ | CARTAGENA · COLOMBIA | GALAPAGOS · ECUADOR"
+            data-enlaces="paquete-panama.html | destino.html?d=cartagena | destino.html?d=galapagos">
+      <a class="carrusel-enlace" href="paquete-panama.html">
+        <div class="carrusel-marco">
+          <img class="carrusel-foto activa" src="img/panama-casco.jpg" alt="Calle del Casco Antiguo de Panamá con balcones y flores">
+        </div>
+      </a>
+      <figcaption class="carrusel-leyenda">CASCO ANTIGUO · PANAMÁ</figcaption>
+    </figure>
   </section>
 
   <!-- Buscador -->
@@ -85,7 +87,7 @@
     <div class="seccion-cabeza">
       <div>
         <p class="eyebrow">Escapadas 2026</p>
-        <h2 class="titulo t-l" style="margin-top:8px">NUESTROS DESTINOS</h2>
+        <h2 class="titulo t-l" style="margin-top:8px">¿Qué te provoca?</h2>
       </div>
       <p id="cuenta-destinos" class="texto-suave" style="margin:0"></p>
     </div>
@@ -112,6 +114,34 @@
         <a class="btn btn-claro" id="salidas-enlace" href="#">Ver el paquete completo</a>
       </div>
       <div id="carril-salidas" class="carril"></div>
+    </div>
+  </section>
+
+  <!-- Seguro de viaje -->
+  <section class="contenedor seccion seguro" id="seguro">
+    <div class="seguro-texto">
+      <p class="eyebrow">Seguro de viaje</p>
+      <h2 class="titulo t-l">Viaja protegido,<br>estés donde estés.</h2>
+      <p class="texto-suave">Un seguro de viaje te cubre si algo sale de lo planeado fuera del país: atención médica por accidente o enfermedad, medicinas y asistencia las 24 horas. Así un imprevisto no se convierte en un gasto enorme lejos de casa.</p>
+      <div class="seguro-acciones">
+        <button type="button" class="btn btn-principal" data-abrir-seguro="normal">Adquiere tu seguro</button>
+        <button type="button" class="btn btn-borde" data-abrir-seguro="estudiantil">Seguro estudiantil</button>
+      </div>
+    </div>
+
+    <div class="seguro-panel">
+      <p class="seguro-panel-titulo">Cobertura en</p>
+      <ul class="seguro-zonas">
+        <li>Europa</li>
+        <li>Asia</li>
+        <li>América</li>
+      </ul>
+      <div class="seguro-precio">
+        <span>Desde</span>
+        <strong>USD 3</strong>
+        <span>por día</span>
+      </div>
+      <p class="seguro-nota">Coberturas de USD 22.000 a USD 70.000 · de 0 a 85 años</p>
     </div>
   </section>
 
@@ -162,8 +192,62 @@
   </div>
 </footer>
 
+<!-- Ventana emergente: Seguro de viaje -->
+<dialog class="seguro-modal" id="modal-seguro" aria-labelledby="seguro-modal-titulo">
+  <form class="seguro-form" id="form-seguro" novalidate>
+    <button type="button" class="seguro-cerrar" data-cerrar-seguro aria-label="Cerrar">&times;</button>
+
+    <p class="eyebrow" id="seguro-modal-tipo">Seguro de viaje</p>
+    <h2 class="titulo t-m" id="seguro-modal-titulo">Arma tu seguro</h2>
+
+    <div class="seguro-tipo" role="radiogroup" aria-label="Tipo de seguro">
+      <label><input type="radio" name="tipo" value="normal" checked><span>Normal</span></label>
+      <label><input type="radio" name="tipo" value="estudiantil"><span>Estudiantil</span></label>
+    </div>
+
+    <fieldset class="seguro-grupo">
+      <legend>¿A qué continente viajas?</legend>
+      <div class="seguro-opciones">
+        <label><input type="radio" name="continente" value="Europa" required><span>Europa</span></label>
+        <label><input type="radio" name="continente" value="Asia"><span>Asia</span></label>
+        <label><input type="radio" name="continente" value="América"><span>América</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="seguro-grupo">
+      <legend>Edad del viajero</legend>
+      <div class="seguro-opciones">
+        <label><input type="radio" name="edad" value="0-75" required><span>0 a 75 años</span></label>
+        <label><input type="radio" name="edad" value="76-85"><span>76 a 85 años</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="seguro-grupo">
+      <legend>Cobertura</legend>
+      <div class="seguro-planes" id="seguro-planes"></div>
+    </fieldset>
+
+    <label class="seguro-dias">
+      <span>¿Cuántos días?</span>
+      <div class="seguro-contador">
+        <button type="button" data-dias="-1" aria-label="Un día menos">−</button>
+        <input type="number" name="dias" id="seguro-dias" min="1" max="365" value="7" inputmode="numeric" required>
+        <button type="button" data-dias="1" aria-label="Un día más">+</button>
+      </div>
+    </label>
+
+    <div class="seguro-total" id="seguro-total" aria-live="polite"></div>
+    <p class="seguro-error" id="seguro-error" role="alert"></p>
+
+    <button type="submit" class="btn btn-principal seguro-enviar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.5.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+      Solicitar por WhatsApp
+    </button>
+  </form>
+</dialog>
+
 <a class="wa-flotante" href="#" data-wa="Hola, quiero información para viajar" aria-label="Escríbenos por WhatsApp">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.300-.8-2.8-1.1-4.500-3.900-4.700-4.100-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.400 1.800 2.200 1.200 1.100 2.200 1.400 2.500 1.500.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.900.9c.3.1.5.2.5.3.1.2.1.7-.1 1.300z"/></svg>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.5.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
 </a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
@@ -173,5 +257,6 @@
 <script src="js/app.js"></script>
 <script src="js/registro.js"></script>
 <script src="js/carrusel.js" defer></script>
+<script src="js/seguro.js" defer></script>
 </body>
 </html>
