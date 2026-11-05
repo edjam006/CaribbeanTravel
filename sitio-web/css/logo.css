@@ -1,0 +1,90 @@
+/* =========================================================
+   LOGO — Caribbean Travel
+   Logo más grande en el encabezado y presente en el pie,
+   en el panel del seguro y en la ventana del seguro.
+   Va después de estilos.css para poder sobrescribirlo.
+   ========================================================= */
+
+/* ---------- Encabezado: todo en una sola línea ---------- */
+.cabecera .nav {
+  flex-wrap: nowrap;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.cabecera .marca { flex: none; gap: 12px; }
+/* El PNG trae espacio vacío a los lados: se muestra en una caja
+   cuadrada y se recorta al centro, donde está el ícono */
+.cabecera .marca img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  object-position: center;
+}
+.cabecera .marca span { font-size: 14px; white-space: nowrap; }
+.cabecera .nav-links { flex-wrap: nowrap; justify-content: flex-end; min-width: 0; }
+.cabecera .nav-links a,
+.cabecera .nav-links .btn { white-space: nowrap; }
+
+/* Pantallas medianas: se aprieta un poco para que no salte de línea */
+@media (max-width: 1180px) {
+  .cabecera .nav-links { gap: 16px; font-size: 14px; }
+  .cabecera .nav-links .btn-principal { padding: 0 18px; }
+  .cabecera .marca span { font-size: 12px; letter-spacing: .22em; }
+}
+@media (max-width: 1040px) and (min-width: 861px) {
+  .cabecera .marca span { display: none; }   /* el logo ya lleva el nombre */
+  .cabecera .nav-links { gap: 14px; }
+}
+
+/* Celular: el menú se oculta (solo-escritorio), queda logo + botones */
+@media (max-width: 860px) {
+  .cabecera .marca img { width: 54px; height: 54px; }
+  .cabecera .nav-links { gap: 10px; }
+}
+@media (max-width: 520px) {
+  .cabecera .marca span { display: none; }
+  .cabecera .marca img { width: 48px; height: 48px; }
+  .cabecera .nav-links .btn-principal { padding: 0 14px; font-size: 14px; }
+}
+
+/* ---------- Pie de página ---------- */
+.pie-marca {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.pie-logo { flex: none; display: block; line-height: 0; }
+.pie-logo img {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+}
+@media (max-width: 640px) {
+  .pie-marca { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .pie-logo img { width: 72px; height: 72px; }
+}
+
+/* ---------- Panel del seguro (sello) ---------- */
+.seguro-panel { position: relative; }
+.sello-logo {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  opacity: .95;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .sello-logo { width: 48px; height: 48px; top: 14px; right: 14px; }
+}
+
+/* ---------- Ventana del seguro ---------- */
+.modal-logo {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  margin: 0 0 12px;
+}

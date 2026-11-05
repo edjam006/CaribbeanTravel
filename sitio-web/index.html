@@ -16,12 +16,13 @@
   <link rel="stylesheet" href="css/registro.css">
   <link rel="stylesheet" href="css/carrusel.css">
   <link rel="stylesheet" href="css/seguro.css">
+  <link rel="stylesheet" href="css/logo.css">
 </head>
 <body>
 
 <header class="cabecera">
   <nav class="contenedor nav" aria-label="Principal">
-    <a class="marca" href="index.html"><img src="img/logo.png" alt=""><span>CARIBBEAN TRAVEL</span></a>
+    <a class="marca" href="index.html" aria-label="Caribbean Travel, inicio"><img src="img/logo.png" alt="" width="64" height="64"><span>CARIBBEAN TRAVEL</span></a>
     <div class="nav-links">
       <a class="solo-escritorio" href="#destinos">Destinos</a>
       <a class="solo-escritorio" href="#salidas">Salidas confirmadas</a>
@@ -87,7 +88,7 @@
     <div class="seccion-cabeza">
       <div>
         <p class="eyebrow">Escapadas 2026</p>
-        <h2 class="titulo t-l" style="margin-top:8px">¿Qué te provoca?</h2>
+        <h2 class="titulo t-l" style="margin-top:8px">NUESTROS DESTINOS</h2>
       </div>
       <p id="cuenta-destinos" class="texto-suave" style="margin:0"></p>
     </div>
@@ -130,6 +131,7 @@
     </div>
 
     <div class="seguro-panel">
+      <img class="sello-logo" src="img/logo.png" alt="" width="64" height="64">
       <p class="seguro-panel-titulo">Cobertura en</p>
       <ul class="seguro-zonas">
         <li>Europa</li>
@@ -179,10 +181,13 @@
 
 <footer class="pie">
   <div class="contenedor">
-    <div>
-      <strong style="letter-spacing:.32em;font-size:13px;color:#172D38">CARIBBEAN TRAVEL</strong><br>
-      Av. América y Villalengua, Edificio Módulos PB · Quito<br>
-      +593 98 762 0947
+    <div class="pie-marca">
+      <a href="#inicio" class="pie-logo" aria-label="Volver al inicio"><img src="img/logo.png" alt="" width="88" height="88"></a>
+      <div>
+        <strong style="letter-spacing:.32em;font-size:13px;color:#172D38">CARIBBEAN TRAVEL</strong><br>
+        Av. América y Villalengua, Edificio Módulos PB · Quito<br>
+        +593 98 762 0947
+      </div>
     </div>
     <div class="pie-redes">
       <a href="https://instagram.com/caribbeantravelec/" target="_blank" rel="noopener">Instagram</a>
@@ -197,6 +202,7 @@
   <form class="seguro-form" id="form-seguro" novalidate>
     <button type="button" class="seguro-cerrar" data-cerrar-seguro aria-label="Cerrar">&times;</button>
 
+    <img class="modal-logo" src="img/logo.png" alt="Caribbean Travel" width="56" height="56">
     <p class="eyebrow" id="seguro-modal-tipo">Seguro de viaje</p>
     <h2 class="titulo t-m" id="seguro-modal-titulo">Arma tu seguro</h2>
 
@@ -258,5 +264,6 @@
 <script src="js/registro.js"></script>
 <script src="js/carrusel.js" defer></script>
 <script src="js/seguro.js" defer></script>
+<script src="js/viaje-medida.js" defer></script>
 </body>
 </html>
