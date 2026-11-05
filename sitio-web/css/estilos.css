@@ -206,6 +206,14 @@ a.tarjeta-media { display: block; color: inherit; text-decoration: none; }
 .contador button { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--linea-2); background: transparent; color: var(--tinta); font: inherit; font-size: 20px; cursor: pointer; }
 .contador output { min-width: 24px; text-align: center; font-size: 18px; font-weight: 600; }
 .total { font-size: 24px; font-weight: 600; }
+.pasajeros { display: flex; flex-direction: column; border-top: 1px solid var(--linea); }
+.pasajero { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0; }
+.pasajero + .pasajero { border-top: 1px dashed var(--linea); }
+.pasajero-info { display: flex; flex-direction: column; min-width: 0; }
+.pasajero-info strong { font-weight: 500; font-size: 16px; }
+.pasajero-info small { font-size: 13px; color: var(--tinta-3); }
+.contador button:disabled { opacity: .35; cursor: default; }
+.aviso-pasajeros { margin: -4px 0 0; font-size: 13px; color: var(--tinta-3); }
 .reserva .btn { border-radius: 14px; min-height: 56px; }
 .nota { margin: -8px 0 0; font-size: 13px; color: var(--tinta-3); text-align: center; }
 @media (max-width: 760px) { .reserva { position: static; } }

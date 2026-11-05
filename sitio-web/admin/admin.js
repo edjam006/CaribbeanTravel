@@ -51,6 +51,7 @@
     if (/Invalid login credentials/i.test(m)) return "Correo o contraseña incorrectos.";
     if (/Email not confirmed/i.test(m)) return "El correo aún no está confirmado. En Supabase, al crear el usuario marca “Auto Confirm User”.";
     if (/Failed to fetch|NetworkError/i.test(m)) return "Sin conexión con la base de datos. Revisa tu internet o la URL en js/config.js.";
+    if (/precio_nino|precio_adulto_mayor/i.test(m) && /column|schema cache/i.test(m)) return "Falta actualizar la base de datos: ejecuta supabase/04_precios_por_tipo.sql en el SQL Editor de Supabase.";
     if (/duplicate key|destinos_slug_key/i.test(m)) return "Ya existe un destino con esa dirección. Cambia la “Dirección de la página”.";
     if (/exceeded the maximum allowed size|Payload too large/i.test(m)) return "Una foto supera 5 MB.";
     return m;
@@ -233,6 +234,8 @@
     form.frase.value = d ? d.frase : "";
     form.descripcion.value = d ? d.descripcion : "";
     form.precio.value = d && d.precio != null ? d.precio : "";
+    form.precio_nino.value = d && d.precioNino != null ? d.precioNino : "";
+    form.precio_adulto_mayor.value = d && d.precioMayor != null ? d.precioMayor : "";
     form.ruta.value = d ? d.ruta : "";
     form.aerolinea.value = d ? d.aerolinea : "";
     form.etiqueta.value = d ? d.etiqueta : "";
@@ -404,7 +407,10 @@
   /* ---------- Guardar ---------- */
   function datosDelFormulario() {
     var precio = String(form.precio.value).trim();
+    function precioOpcional(campo) { var v = String(campo.value).trim(); return v === "" ? null : Math.max(0, Number(v)); }
     return {
+      precio_nino: precioOpcional(form.precio_nino),
+      precio_adulto_mayor: precioOpcional(form.precio_adulto_mayor),
       nombre: form.nombre.value.trim(),
       slug: API.slugificar(form.slug.value || form.nombre.value),
       pais: form.pais.value.trim() || null,

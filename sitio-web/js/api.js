@@ -44,6 +44,9 @@
     var salidas = (d.salidas || []).map(function (s) { return typeof s === "string" ? s : s.fecha; })
       .filter(Boolean).sort();
     var precio = d.precio != null ? d.precio : d.precio_desde;
+    function num(v) { return v == null || v === "" ? null : Number(v); }
+    var precioNino = num(d.precioNino != null ? d.precioNino : d.precio_nino);
+    var precioMayor = num(d.precioMayor != null ? d.precioMayor : d.precio_adulto_mayor);
     return {
       id: d.id || null,
       slug: d.slug,
@@ -52,7 +55,9 @@
       frase: d.frase || "",
       descripcion: d.descripcion || "",
       categorias: d.categorias || [],
-      precio: precio == null || precio === "" ? null : Number(precio),
+      precio: precio == null || precio === "" ? null : Number(precio),   // adulto
+      precioNino: precioNino,       // null = mismo que adulto
+      precioMayor: precioMayor,     // null = mismo que adulto
       etiqueta: d.etiqueta || "",
       ruta: d.ruta || "",
       aerolinea: d.aerolinea || "",
@@ -130,6 +135,18 @@
     dinero: dinero,
     slugificar: slugificar,
     SELECT: SELECT,
+    // Tipos de viajero de la tarjeta de reserva
+    PASAJEROS: [
+      { id: "adultos", nombre: "Adultos", detalle: "", uno: "adulto", varios: "adultos", inicial: 2 },
+      { id: "ninos", nombre: "Niños", detalle: "Menores de 11 años", uno: "niño menor de 11 años", varios: "niños menores de 11 años", inicial: 0 },
+      { id: "mayores", nombre: "Adultos mayores", detalle: "", uno: "adulto mayor", varios: "adultos mayores", inicial: 0 }
+    ],
+    precioPasajero: function (d, tipo) {
+      if (d.precio == null) return null;
+      if (tipo === "ninos" && d.precioNino != null) return d.precioNino;
+      if (tipo === "mayores" && d.precioMayor != null) return d.precioMayor;
+      return d.precio;
+    },
     CATEGORIAS: [
       { id: "playa", nombre: "Playa" },
       { id: "ciudad", nombre: "Ciudad" },

@@ -211,13 +211,44 @@
     var fechas = API.salidasFuturas(d);
     var reserva = $("#reserva");
     $("#r-precio").textContent = d.precio != null ? API.dinero(d.precio) : "A cotizar";
-    $("#r-precio-label").textContent = d.precio != null ? "Desde, por persona" : "Precio según tus fechas";
+    $("#r-precio-label").textContent = d.precio != null ? "Desde, por adulto" : "Precio según tus fechas";
     var bloqueFechas = $("#r-fechas-bloque");
     bloqueFechas.hidden = !fechas.length;
     var estado = {
       salida: fechas.some(function (f) { return f.iso === salidaPedida; }) ? salidaPedida : (fechas[0] && fechas[0].iso),
-      viajeros: 2
+      pax: {}
     };
+    API.PASAJEROS.forEach(function (t) { estado.pax[t.id] = t.inicial; });
+
+    // Filas de viajeros: Adultos, Niños (menores de 11), Adultos mayores
+    $("#r-pasajeros").innerHTML = API.PASAJEROS.map(function (t) {
+      var p = API.precioPasajero(d, t.id);
+      var sub = [t.detalle, p != null ? API.dinero(p) + " c/u" : ""].filter(Boolean).join(" · ");
+      return '<div class="pasajero"><div class="pasajero-info"><strong id="lbl-' + t.id + '">' + t.nombre + "</strong>" +
+        (sub ? "<small>" + esc(sub) + "</small>" : "") + "</div>" +
+        '<div class="contador" role="group" aria-labelledby="lbl-' + t.id + '">' +
+          '<button type="button" data-pax="' + t.id + '" data-delta="-1" aria-label="Quitar ' + t.uno + '">−</button>' +
+          '<output data-cuenta="' + t.id + '" aria-live="polite">' + t.inicial + "</output>" +
+          '<button type="button" data-pax="' + t.id + '" data-delta="1" aria-label="Agregar ' + t.uno + '">+</button>' +
+        "</div></div>";
+    }).join("");
+
+    $("#r-pasajeros").onclick = function (e) {
+      var b = e.target.closest("[data-pax]");
+      if (!b || b.disabled) return;
+      var tipo = b.getAttribute("data-pax");
+      estado.pax[tipo] = Math.max(0, Math.min(10, estado.pax[tipo] + parseInt(b.getAttribute("data-delta"), 10)));
+      pintarReserva();
+    };
+
+    function textoPasajeros() {
+      var partes = API.PASAJEROS.filter(function (t) { return estado.pax[t.id] > 0; }).map(function (t) {
+        var n = estado.pax[t.id];
+        return n + " " + (n === 1 ? t.uno : t.varios);
+      });
+      if (partes.length <= 1) return partes[0] || "";
+      return partes.slice(0, -1).join(", ") + " y " + partes[partes.length - 1];
+    }
     if (fechas.length) {
       var meses = fechas.map(function (f) { return f.mes; }).filter(function (m, i, a) { return a.indexOf(m) === i; });
       $("#r-fechas-titulo").textContent = "ELIGE TU SALIDA" + (meses.length === 1 ? " · " + meses[0].toUpperCase() : "");
@@ -234,10 +265,23 @@
 
     function pintarReserva() {
       $$("[data-dia]", reserva).forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-dia") === estado.salida)); });
-      $("#viajeros", reserva).textContent = estado.viajeros;
-      if (d.precio != null) $("#total", reserva).textContent = API.dinero(d.precio * estado.viajeros);
+      var P = estado.pax;
+      var responsables = P.adultos + P.mayores;
+      API.PASAJEROS.forEach(function (t) {
+        $('[data-cuenta="' + t.id + '"]', reserva).textContent = P[t.id];
+        var menos = $('[data-pax="' + t.id + '"][data-delta="-1"]', reserva);
+        // No se puede dejar el viaje sin al menos un adulto o adulto mayor
+        var ultimo = t.id !== "ninos" && responsables === 1 && P[t.id] === 1;
+        menos.disabled = P[t.id] === 0 || ultimo;
+        menos.title = ultimo ? "Debe viajar al menos un adulto o adulto mayor" : "";
+        $('[data-pax="' + t.id + '"][data-delta="1"]', reserva).disabled = P[t.id] >= 10;
+      });
+      if (d.precio != null) {
+        var total = API.PASAJEROS.reduce(function (s, t) { return s + API.precioPasajero(d, t.id) * P[t.id]; }, 0);
+        $("#total", reserva).textContent = API.dinero(total);
+      }
       var cta = $("#cta-reservar", reserva);
-      var personas = estado.viajeros + (estado.viajeros === 1 ? " persona" : " personas");
+      var personas = textoPasajeros();
       if (estado.salida) {
         var f = API.infoFecha(estado.salida);
         cta.textContent = "Reservar salida del " + f.dia + " de " + f.mesCorto;
@@ -247,8 +291,6 @@
         cta.href = API.linkWhatsApp("Hola, quiero cotizar un viaje a " + d.nombre + " para " + personas + ".");
       }
     }
-    $("#menos", reserva).onclick = function () { estado.viajeros = Math.max(1, estado.viajeros - 1); pintarReserva(); };
-    $("#mas", reserva).onclick = function () { estado.viajeros = Math.min(10, estado.viajeros + 1); pintarReserva(); };
     pintarReserva();
     paginaDestino.removeAttribute("aria-busy");
   }
