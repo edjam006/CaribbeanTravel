@@ -122,3 +122,17 @@
 .adm-toast.error { background: #8A1F1F; }
 button[disabled].btn { opacity: .6; cursor: progress; }
 .admin .wa-flotante { display: none; }
+
+/* ---------- Pestañas de módulos: Destinos | Salidas confirmadas ---------- */
+.adm-tabs {
+  display: flex; gap: 6px; padding: 6px; margin-bottom: 32px; width: fit-content; max-width: 100%;
+  background: var(--blanco); border: 1px solid var(--linea); border-radius: 999px; overflow-x: auto;
+}
+.adm-tabs button {
+  min-height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: transparent;
+  font: inherit; font-size: 16px; font-weight: 600; color: var(--tinta-2); cursor: pointer; white-space: nowrap;
+}
+.adm-tabs button:hover { background: var(--papel); color: var(--tinta); }
+.adm-tabs button[aria-selected="true"] { background: var(--tinta); color: var(--marfil); }
+.adm-mini-sc { display: grid; place-items: center; background: var(--oceano); color: #fff; font-size: 30px; }
+@media (max-width: 680px) { .adm-tabs { width: 100%; } .adm-tabs button { flex: 1; padding: 0 14px; font-size: 15px; } }

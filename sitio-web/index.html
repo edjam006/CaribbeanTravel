@@ -7,7 +7,7 @@
   <meta name="description" content="Agencia de viajes en Quito. Paquetes a Panamá, Cartagena, Punta Cana, Galápagos y más, con asesoría personalizada por WhatsApp.">
   <meta property="og:title" content="Caribbean Travel · Viajar, con otra mirada">
   <meta property="og:description" content="Paquetes, vuelos y viajes a medida desde Ecuador.">
-  <meta property="og:image" content="img/panama-casco.jpg">
+  <meta property="og:image" content="https://caribbeantravelvacaciones.com/img/logo.png">
   <link rel="icon" href="img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,6 +83,22 @@
     </div>
   </section>
 
+  <!-- Salidas confirmadas: se llenan desde el panel (pestaña "Salidas confirmadas") -->
+  <section class="salidas" id="salidas" aria-labelledby="salidas-titulo" hidden>
+    <div class="contenedor">
+      <div class="salidas-cabeza">
+        <div class="salidas-texto">
+          <p class="eyebrow" id="salidas-eyebrow">Próximos meses</p>
+          <h2 class="titulo t-l" id="salidas-titulo">Salidas confirmadas.</h2>
+          <div class="salidas-botones" id="salidas-botones" role="tablist" aria-label="Elige el destino"></div>
+          <p class="texto-suave salidas-detalle" id="salidas-detalle" aria-live="polite"></p>
+        </div>
+        <img class="salidas-avion" id="salidas-avion" src="img/avion-aeroregional.png" alt="" width="1200" height="319">
+      </div>
+      <div id="carril-salidas" class="carril"></div>
+    </div>
+  </section>
+
   <!-- Destinos -->
   <section class="contenedor seccion" id="destinos">
     <div class="seccion-cabeza">
@@ -101,21 +117,6 @@
       <button type="button" class="chip" data-filtro="cerca" aria-pressed="false">A pocas horas</button>
     </div>
     <div id="grilla-destinos" class="grilla" aria-live="polite"></div>
-  </section>
-
-  <!-- Salidas confirmadas -->
-  <section class="salidas" id="salidas" hidden>
-    <div class="contenedor">
-      <div class="seccion-cabeza" style="margin:0">
-        <div style="max-width:620px">
-          <p class="eyebrow" id="salidas-eyebrow">Salidas confirmadas</p>
-          <h2 class="titulo t-l" style="margin:10px 0" id="salidas-titulo"></h2>
-          <p class="texto-suave" style="margin:0" id="salidas-detalle"></p>
-        </div>
-        <a class="btn btn-claro" id="salidas-enlace" href="#">Ver el paquete completo</a>
-      </div>
-      <div id="carril-salidas" class="carril"></div>
-    </div>
   </section>
 
   <!-- Seguro de viaje -->

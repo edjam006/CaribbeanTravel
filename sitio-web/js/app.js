@@ -70,25 +70,77 @@
     }).join("");
   }
 
-  function pintarSalidasPortada() {
+  /* ---------- Salidas confirmadas (tabla salidas_confirmadas, módulo aparte) ---------- */
+  var DIAS_LARGOS = { DOM: "domingo", LUN: "lunes", MAR: "martes", "MIÉ": "miércoles", JUE: "jueves", VIE: "viernes", "SÁB": "sábado" };
+
+  var salidasConf = [];
+  var salidaActiva = 0;
+
+  function etiquetaSalida(s, lista) {
+    // Si dos salidas van al mismo destino, se distinguen por el origen
+    var repetido = lista.filter(function (x) { return x.destino.toLowerCase() === s.destino.toLowerCase(); }).length > 1;
+    return repetido ? s.destino + " desde " + s.origen : s.destino;
+  }
+
+  function pintarSalidasConfirmadas(lista) {
     var seccion = $("#salidas");
     if (!seccion) return;
-    var d = destinos.filter(function (x) { return x.destacado && API.salidasFuturas(x).length; })[0];
-    if (!d) { seccion.hidden = true; return; }
-    var fechas = API.salidasFuturas(d);
-    var meses = fechas.map(function (f) { return f.mes; }).filter(function (m, i, a) { return a.indexOf(m) === i; });
-    $("#salidas-eyebrow").textContent = "Salidas confirmadas · " + (meses.length === 1 ? meses[0] : "próximos meses");
-    $("#salidas-titulo").textContent = d.nombre + ", cuando tú quieras.";
-    var detalle = [d.ruta, d.aerolinea ? "con " + d.aerolinea : ""].filter(Boolean).join(" ");
-    var inc = d.incluye.map(function (x) { return x.valor + (x.titulo ? " " + x.titulo.toLowerCase() : ""); }).join(", ");
-    $("#salidas-detalle").textContent = [detalle, inc ? "Incluye: " + inc + "." : ""].filter(Boolean).join(". ");
-    $("#salidas-enlace").href = urlDestino(d);
-    $("#carril-salidas").innerHTML = fechas.map(function (f) {
-      return '<a class="fecha" href="' + urlDestino(d, "&salida=" + f.iso) + '"><small>' + f.semana + '</small><span class="dia">' + f.dia +
-        "</span><small>" + f.mesCorto + (d.precio != null ? " · desde " + API.dinero(d.precio) : "") + "</small></a>";
+    salidasConf = lista;
+    if (!lista.length) { seccion.hidden = true; return; }
+
+    var meses = [];
+    lista.forEach(function (s) {
+      API.fechasFuturas(s.fechas).forEach(function (f) { if (meses.indexOf(f.mes) === -1) meses.push(f.mes); });
+    });
+    $("#salidas-eyebrow").textContent = meses.length === 1 ? meses[0] : "Próximos meses";
+
+    $("#salidas-botones").innerHTML = lista.map(function (s, i) {
+      return '<button type="button" class="chip" role="tab" data-salida="' + i + '">' + esc(etiquetaSalida(s, lista)) + "</button>";
     }).join("");
+    elegirSalida(0);
     seccion.hidden = false;
   }
+
+  function elegirSalida(i) {
+    var s = salidasConf[i];
+    if (!s) return;
+    salidaActiva = i;
+    $$("#salidas-botones [data-salida]").forEach(function (b) {
+      b.setAttribute("aria-selected", String(+b.getAttribute("data-salida") === i));
+    });
+
+    var inc = s.incluye.map(function (x) { return [x.valor, x.titulo ? x.titulo.toLowerCase() : ""].filter(Boolean).join(" "); }).join(", ");
+    $("#salidas-detalle").textContent =
+      s.ruta + (s.aerolinea ? " con " + s.aerolinea : "") + "." +
+      (inc ? " Incluye: " + inc + "." : "") +
+      (s.precio != null ? " Desde " + API.dinero(s.precio) + " por persona." : "");
+
+    // El avión de Aeroregional sale si la aerolínea es Aeroregional o está vacía
+    $("#salidas-avion").hidden = !!s.aerolinea && !/aeroregional/i.test(s.aerolinea);
+
+    $("#carril-salidas").innerHTML = API.fechasFuturas(s.fechas).map(function (f) {
+      var dia = DIAS_LARGOS[f.semana] || f.semana.toLowerCase();
+      var msg = "Hola, quiero reservar la salida confirmada *" + s.ruta + "*" + (s.aerolinea ? " con " + s.aerolinea : "") +
+        " del *" + dia + " " + f.dia + " de " + f.mes + " de " + f.anio + "*." +
+        (s.precio != null ? " Precio desde " + API.dinero(s.precio) + " por persona." : "") +
+        " ¿Hay cupos disponibles?";
+      return '<a class="fecha" href="' + esc(API.linkWhatsApp(msg)) + '" target="_blank" rel="noopener" aria-label="Reservar ' +
+        esc(s.ruta) + ", " + dia + " " + f.dia + " de " + f.mes + ' por WhatsApp">' +
+        "<small>" + f.semana + '</small><span class="dia">' + f.dia + "</span>" +
+        "<small>" + f.mesCorto + (s.precio != null ? " · desde " + API.dinero(s.precio) : "") + "</small></a>";
+    }).join("");
+    $("#carril-salidas").scrollLeft = 0;
+  }
+
+  var botonesSalidas = $("#salidas-botones");
+  if (botonesSalidas) {
+    botonesSalidas.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-salida]");
+      if (b) elegirSalida(+b.getAttribute("data-salida"));
+    });
+  }
+
+  if ($("#salidas")) API.listarSalidasConfirmadas().then(pintarSalidasConfirmadas);
 
   if (grilla) {
     grilla.innerHTML = '<p class="vacio">Cargando destinos…</p>';
@@ -111,7 +163,6 @@
     API.listar().then(function (lista) {
       destinos = lista;
       pintarDestinos();
-      pintarSalidasPortada();
       var dl = $("#lista-destinos");
       if (dl) dl.innerHTML = lista.map(function (d) { return '<option value="' + esc(d.nombre) + '">'; }).join("");
     });

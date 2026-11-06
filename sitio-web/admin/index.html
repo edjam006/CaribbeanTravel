@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Panel de destinos · Caribbean Travel</title>
+  <title>Panel de administración · Caribbean Travel</title>
   <link rel="icon" href="../img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,12 @@
 </header>
 
 <main class="contenedor adm-main">
+
+  <!-- Módulos del panel -->
+  <nav class="adm-tabs" id="adm-tabs" role="tablist" aria-label="Módulos del panel" hidden>
+    <button type="button" role="tab" aria-selected="true" data-modulo="destinos">Destinos</button>
+    <button type="button" role="tab" aria-selected="false" data-modulo="salidas">Salidas confirmadas</button>
+  </nav>
 
   <!-- Cargando -->
   <section id="vista-cargando" class="adm-centro"><p class="texto-suave">Cargando…</p></section>
@@ -169,7 +175,8 @@
           </fieldset>
 
           <fieldset class="adm-bloque">
-            <legend>Salidas confirmadas</legend>
+            <legend>Fechas del paquete</legend>
+            <p class="adm-ayuda">Se muestran en la página de este destino. Las salidas confirmadas de la portada se manejan en la pestaña <b>Salidas confirmadas</b>.</p>
             <div class="adm-fecha-nueva">
               <label class="campo">Fecha<input type="date" id="input-fecha"></label>
               <button type="button" class="btn btn-borde" id="btn-add-fecha">Agregar</button>
@@ -181,12 +188,92 @@
           <fieldset class="adm-bloque">
             <legend>Publicación</legend>
             <label class="adm-switch"><input type="checkbox" name="publicado" checked><span>Publicado (visible en el sitio)</span></label>
-            <label class="adm-switch"><input type="checkbox" name="destacado"><span>Destacado en "Salidas confirmadas" de la portada</span></label>
+            <label class="adm-switch"><input type="checkbox" name="destacado"><span>Destacado (marca interna en esta lista)</span></label>
             <label class="campo">Orden en la portada (menor = primero)<input name="orden" type="number" step="1" value="0"></label>
           </fieldset>
         </div>
       </div>
       <p class="adm-error" id="editor-error" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <!-- ===================== SALIDAS CONFIRMADAS ===================== -->
+  <!-- Lista -->
+  <section id="vista-sc-lista" hidden>
+    <div class="adm-cabeza">
+      <div>
+        <p class="eyebrow">Administración</p>
+        <h1 class="titulo t-l">Salidas confirmadas</h1>
+      </div>
+      <div class="adm-acciones">
+        <button type="button" class="btn btn-principal" id="sc-btn-nuevo">+ Nueva salida confirmada</button>
+      </div>
+    </div>
+    <p class="adm-ayuda" style="margin:0 0 16px">Aparecen en la franja azul de la portada, entre el buscador y "Nuestros destinos", con un botón por destino. Al tocar una fecha, el cliente abre WhatsApp con la ruta, la fecha y el precio.</p>
+    <p class="texto-suave" id="sc-resumen"></p>
+    <ul class="adm-lista" id="sc-lista"></ul>
+  </section>
+
+  <!-- Editor -->
+  <section id="vista-sc-editor" hidden>
+    <form id="form-salida" novalidate>
+      <div class="adm-cabeza">
+        <div>
+          <button type="button" class="adm-enlace" id="sc-btn-volver">← Volver a salidas confirmadas</button>
+          <h1 class="titulo t-l" id="sc-editor-titulo">Nueva salida confirmada</h1>
+        </div>
+        <div class="adm-acciones">
+          <button type="button" class="btn btn-borde adm-peligro" id="sc-btn-borrar" hidden>Borrar</button>
+          <button type="submit" class="btn btn-principal" id="sc-btn-guardar">Guardar salida</button>
+        </div>
+      </div>
+
+      <div class="adm-editor">
+        <div class="adm-col">
+          <fieldset class="adm-bloque">
+            <legend>Ruta</legend>
+            <div class="adm-fila">
+              <label class="campo">Desde *<input name="origen" maxlength="40" required placeholder="Quito"></label>
+              <label class="campo">Hacia *<input name="destino" maxlength="40" required placeholder="Panamá"></label>
+            </div>
+            <label class="adm-switch"><input type="checkbox" name="ida_vuelta" checked><span>Ida y vuelta (ej. Quito — Panamá — Quito)</span></label>
+            <p class="adm-ayuda" id="sc-ruta-vista"></p>
+            <input type="hidden" name="titulo">
+            <label class="campo">Aerolínea<input name="aerolinea" maxlength="60" placeholder="Aeroregional"></label>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Qué incluye</legend>
+            <p class="adm-ayuda">Ej. Equipaje de bodega · 23 kg, Equipaje de mano · 10 kg, Artículo personal · Incluido.</p>
+            <div id="sc-incluye" class="adm-filas"></div>
+            <button type="button" class="adm-enlace" id="sc-btn-add-incluye">+ Agregar elemento</button>
+          </fieldset>
+        </div>
+
+        <div class="adm-col adm-col-lateral">
+          <fieldset class="adm-bloque">
+            <legend>Precio</legend>
+            <label class="campo">Precio desde, por persona (USD)<input name="precio" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Vacío = Consultar precio"></label>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Fechas de salida</legend>
+            <div class="adm-fecha-nueva">
+              <label class="campo">Fecha<input type="date" id="sc-input-fecha"></label>
+              <button type="button" class="btn btn-borde" id="sc-btn-add-fecha">Agregar</button>
+            </div>
+            <ul class="adm-chips" id="sc-fechas"></ul>
+            <p class="adm-ayuda">Las fechas pasadas se ocultan solas en el sitio. Si no quedan fechas futuras, la salida no se muestra.</p>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Publicación</legend>
+            <label class="adm-switch"><input type="checkbox" name="publicado" checked><span>Publicado (visible en la portada)</span></label>
+            <label class="campo">Orden (menor = primero)<input name="orden" type="number" step="1" value="0"></label>
+          </fieldset>
+        </div>
+      </div>
+      <p class="adm-error" id="sc-editor-error" role="alert" hidden></p>
     </form>
   </section>
 </main>
@@ -198,5 +285,6 @@
 <script src="../js/datos.js"></script>
 <script src="../js/api.js"></script>
 <script src="admin.js"></script>
+<script src="salidas.js"></script>
 </body>
 </html>

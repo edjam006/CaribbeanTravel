@@ -107,6 +107,53 @@
     });
   }
 
+  /* ---------- Salidas confirmadas (módulo aparte de los destinos) ---------- */
+  function fechasFuturas(lista) {
+    var h = hoy();
+    return (lista || []).map(function (s) { return String(s).slice(0, 10); })
+      .filter(function (s) { return aFecha(s) >= h; })
+      .sort()
+      .map(infoFecha);
+  }
+
+  function normalizarSalidaConfirmada(s) {
+    var origen = s.origen || "", destino = s.destino || "";
+    var idaVuelta = s.ida_vuelta !== false;
+    var ruta = [origen, destino].concat(idaVuelta ? [origen] : []).filter(Boolean).join(" — ");
+    var precio = s.precio_desde;
+    return {
+      id: s.id,
+      origen: origen,
+      destino: destino,
+      idaVuelta: idaVuelta,
+      ruta: ruta,
+      tituloPropio: s.titulo || "",
+      titulo: s.titulo || (destino + ", cuando tú quieras."),
+      aerolinea: s.aerolinea || "",
+      precio: precio == null || precio === "" ? null : Number(precio),
+      incluye: Array.isArray(s.incluye) ? s.incluye : [],
+      fechas: (s.fechas || []).map(function (f) { return String(f).slice(0, 10); }).sort(),
+      publicado: s.publicado !== false,
+      orden: s.orden || 0
+    };
+  }
+
+  // Salidas publicadas con al menos una fecha futura. Si falla, lista vacía (la sección se oculta).
+  function listarSalidasConfirmadas() {
+    var sb = clientePublico();
+    if (!sb) return Promise.resolve([]);
+    return sb.from("salidas_confirmadas").select("*").eq("publicado", true)
+      .order("orden", { ascending: true }).order("creado_en", { ascending: true })
+      .then(function (r) {
+        if (r.error) throw r.error;
+        return r.data.map(normalizarSalidaConfirmada).filter(function (s) { return fechasFuturas(s.fechas).length; });
+      })
+      .catch(function (e) {
+        console.warn("[Caribbean Travel] No se pudieron leer las salidas confirmadas.", e);
+        return [];
+      });
+  }
+
   /* ---------- Utilidades compartidas ---------- */
   function linkWhatsApp(texto) {
     return "https://wa.me/" + (C.whatsapp || "593987620947") + "?text=" + encodeURIComponent(texto);
@@ -129,6 +176,9 @@
     normalizar: normalizar,
     locales: locales,
     salidasFuturas: salidasFuturas,
+    fechasFuturas: fechasFuturas,
+    normalizarSalidaConfirmada: normalizarSalidaConfirmada,
+    listarSalidasConfirmadas: listarSalidasConfirmadas,
     infoFecha: infoFecha,
     linkWhatsApp: linkWhatsApp,
     escapar: escapar,

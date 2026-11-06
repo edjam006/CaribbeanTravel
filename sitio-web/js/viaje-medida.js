@@ -3,7 +3,7 @@
    Un solo formulario para las tres pestañas, que envía la
    cotización en UN solo mensaje de WhatsApp:
    • Paquetes:       ida y vuelta / solo ida, ruta, viajeros.
-   • Solo vuelos:    ida y vuelta / solo ida, ruta, pasajeros y clase.
+   • Solo vuelos:    ida y vuelta / solo ida, ruta, fechas, pasajeros y clase.
    • Viaje a medida: además multidestino, calendario y extras.
 
    Se conecta solo: oculta #form-buscar y muestra este
@@ -63,7 +63,7 @@
       saludo: "Hola, quiero cotizar un *paquete* 🌴"
     },
     vuelo: {
-      tipos: ["ida-vuelta", "solo-ida"], fechas: false, clase: true, extras: false,
+      tipos: ["ida-vuelta", "solo-ida"], fechas: true, clase: true, extras: false,
       boton: "Cotizar vuelo", etqPax: "Pasajeros y clase",
       saludo: "Hola, quiero cotizar *solo vuelo* ✈️"
     },

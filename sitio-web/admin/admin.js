@@ -25,9 +25,16 @@
   var migracionIncompleta = false;
 
   /* ---------- Utilidades de interfaz ---------- */
-  var VISTAS = ["cargando", "config", "login", "nueva-clave", "noadmin", "lista", "editor"];
+  var VISTAS = ["cargando", "config", "login", "nueva-clave", "noadmin", "lista", "editor", "sc-lista", "sc-editor"];
+  var VISTAS_PANEL = { "lista": "destinos", "editor": "destinos", "sc-lista": "salidas", "sc-editor": "salidas" };
   function mostrar(v) {
     VISTAS.forEach(function (n) { $("#vista-" + n).hidden = n !== v; });
+    // Pestañas Destinos / Salidas confirmadas: visibles solo dentro del panel
+    var tabs = $("#adm-tabs");
+    tabs.hidden = !VISTAS_PANEL[v];
+    $$("[data-modulo]", tabs).forEach(function (t) {
+      t.setAttribute("aria-selected", String(t.getAttribute("data-modulo") === VISTAS_PANEL[v]));
+    });
     window.scrollTo(0, 0);
   }
   var tToast;
@@ -88,8 +95,23 @@
     mostrar("cargando");
     var r = await sb.rpc("es_admin");
     if (r.error || !r.data) { mostrar("noadmin"); return; }
+    // Herramientas compartidas con el módulo de salidas confirmadas (admin/salidas.js)
+    window.CT_ADMIN = { sb: sb, mostrar: mostrar, toast: toast, errorEn: errorEn, ocupado: ocupado, mensajeError: mensajeError, plural: plural };
     cargarLista();
   }
+
+  /* ---------- Pestañas: Destinos | Salidas confirmadas ---------- */
+  $("#adm-tabs").addEventListener("click", function (e) {
+    var t = e.target.closest("[data-modulo]");
+    if (!t || t.getAttribute("aria-selected") === "true") return;
+    var SC = window.CT_SALIDAS_ADMIN;
+    if ((sucio || (SC && SC.haySinGuardar())) && !confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) return;
+    sucio = false;
+    if (SC) SC.descartar();
+    if (SC) SC.descartar();
+    if (t.getAttribute("data-modulo") === "salidas") { if (SC) SC.cargar(); }
+    else cargarLista();
+  });
 
   $("#form-login").addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -128,7 +150,8 @@
   });
 
   $("#btn-salir").addEventListener("click", async function () {
-    if (sucio && !confirm("Tienes cambios sin guardar. ¿Salir de todas formas?")) return;
+    var SC = window.CT_SALIDAS_ADMIN;
+    if ((sucio || (SC && SC.haySinGuardar())) && !confirm("Tienes cambios sin guardar. ¿Salir de todas formas?")) return;
     sucio = false;
     await sb.auth.signOut();
   });
