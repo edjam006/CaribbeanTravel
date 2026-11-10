@@ -1,0 +1,186 @@
+/* =========================================================
+   TRANSFER — Caribbean Travel
+   Sección + ventana del formulario. Usa los mismos tokens
+   de estilos.css (tinta, naranja, océano, celeste, línea).
+   Va después de estilos.css.
+   ========================================================= */
+
+/* ---------- Sección ---------- */
+.transfer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+}
+.transfer-texto .titulo { margin: 14px 0 22px; }
+.transfer-texto .texto-suave { margin: 0; max-width: 560px; font-size: 18px; line-height: 1.6; }
+.transfer-acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+
+.transfer-panel {
+  border-top: 3px solid var(--oceano);
+  padding-top: 32px;
+}
+.transfer-panel-titulo {
+  margin: 0 0 22px; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--tinta-3);
+}
+.transfer-ruta { list-style: none; margin: 0; padding: 0; position: relative; }
+.transfer-ruta::before {               /* línea punteada que une las paradas */
+  content: ""; position: absolute; left: 23px; top: 24px; bottom: 24px;
+  border-left: 2px dashed var(--celeste);
+}
+.transfer-ruta li {
+  position: relative; display: flex; align-items: center; gap: 18px; padding: 10px 0;
+}
+.transfer-ruta .tr-ico {
+  flex: 0 0 48px; height: 48px; display: grid; place-items: center;
+  border-radius: 999px; background: var(--blanco); border: 1px solid var(--linea);
+  color: var(--oceano);
+}
+.transfer-ruta li:nth-child(2) .tr-ico { background: var(--oceano); border-color: var(--oceano); color: #fff; }
+.transfer-ruta svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.transfer-ruta b { display: block; font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 1.1; }
+.transfer-ruta small { display: block; font-size: 14px; color: var(--tinta-3); }
+.transfer-nota { margin: 22px 0 0; font-size: 15px; color: var(--tinta-3); }
+
+@media (max-width: 900px) {
+  .transfer { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 480px) {
+  .transfer-acciones .btn { flex: 1 1 100%; }
+}
+
+/* ---------- Ventana ---------- */
+html.tf-abierto { overflow: hidden; }
+.tf-modal {
+  width: min(560px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto; padding: 0; border: 0; border-radius: 24px;
+  background: var(--marfil); color: var(--tinta);
+  box-shadow: 0 24px 64px rgba(23, 45, 56, .28);
+  overflow: auto;
+}
+.tf-modal::backdrop { background: rgba(23, 45, 56, .55); backdrop-filter: blur(3px); }
+.tf-form { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 36px 32px 32px; }
+.tf-logo { width: 56px; height: 56px; object-fit: contain; }
+.tf-form .titulo { margin: -6px 0 0; }
+.tf-sub { margin: -4px 0 4px; color: var(--tinta-2); font-size: 15px; }
+
+.tf-cerrar {
+  position: absolute; top: 16px; right: 16px; width: 44px; height: 44px;
+  display: grid; place-items: center; border: 0; border-radius: 999px;
+  background: transparent; color: var(--tinta); cursor: pointer;
+}
+.tf-cerrar:hover { background: rgba(23, 45, 56, .07); }
+.tf-cerrar svg, .tf-swap svg, .tf-stepper svg {
+  width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round;
+}
+
+.tf-campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+.tf-campo > span { font-size: 13px; font-weight: 600; color: var(--tinta-2); }
+.tf-campo em { font-style: normal; font-weight: 400; color: var(--tinta-3); }
+.tf-campo input {
+  width: 100%; min-height: 52px; padding: 0 16px;
+  font: inherit; font-size: 16px; color: var(--tinta);
+  background: var(--blanco); border: 1px solid var(--linea-2); border-radius: 12px;
+}
+.tf-campo input:focus { outline: none; border-color: var(--oceano); box-shadow: 0 0 0 3px rgba(31, 111, 181, .18); }
+
+.tf-rapido { display: flex; flex-wrap: wrap; gap: 8px; }
+.tf-chip {
+  min-height: 40px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid var(--linea-2); background: transparent;
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--tinta); cursor: pointer;
+}
+.tf-chip:hover { background: var(--blanco); border-color: var(--oceano); color: var(--oceano); }
+
+.tf-ruta { display: flex; flex-direction: column; gap: 6px; position: relative; }
+.tf-swap {
+  align-self: flex-end; margin: -2px 12px -2px 0; width: 40px; height: 40px;
+  display: grid; place-items: center; border-radius: 999px;
+  border: 1px solid var(--linea-2); background: var(--blanco); color: var(--oceano); cursor: pointer;
+}
+.tf-swap:hover { background: var(--oceano); color: #fff; border-color: var(--oceano); }
+
+.tf-fila { display: flex; gap: 12px; flex-wrap: wrap; }
+.tf-fila > .tf-campo { flex: 1 1 140px; }
+
+.tf-stepper {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 52px; padding: 0 6px; background: var(--blanco);
+  border: 1px solid var(--linea-2); border-radius: 12px;
+}
+.tf-stepper button {
+  width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 999px;
+  background: transparent; color: var(--tinta); cursor: pointer;
+}
+.tf-stepper button:hover:not(:disabled) { background: var(--papel); }
+.tf-stepper button:disabled { opacity: .3; cursor: default; }
+.tf-stepper output { font-weight: 700; font-size: 17px; min-width: 24px; text-align: center; }
+
+.tf-check { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; cursor: pointer; }
+.tf-check input { width: 20px; height: 20px; accent-color: var(--oceano); }
+
+.tf-error {
+  margin: 0; padding: 12px 16px; border-radius: 12px;
+  background: #FDECEC; color: #8A1F1F; font-size: 14px; font-weight: 500;
+}
+.tf-enviar { width: 100%; min-height: 54px; margin-top: 4px; }
+
+@media (max-width: 560px) {
+  .tf-modal {
+    width: 100%; max-width: 100%; max-height: 92dvh;
+    margin: auto 0 0; border-radius: 24px 24px 0 0;   /* hoja desde abajo en celular */
+  }
+  .tf-form { padding: 28px 20px 24px; }
+}
+
+/* =========================================================
+   ENCABEZADO QUE SE AJUSTA SOLO (lo controla transfer.js)
+   data-ajuste="1" → menos espacio entre enlaces
+   data-ajuste="2" → además oculta "CARIBBEAN TRAVEL" (el logo ya lo lleva)
+   data-ajuste="3" → los enlaces pasan a un botón "Menú"
+   ========================================================= */
+.cabecera .nav-links { position: relative; }
+.cabecera .nav[data-ajuste="1"] .nav-links,
+.cabecera .nav[data-ajuste="2"] .nav-links { gap: 18px; font-size: 14px; }
+.cabecera .nav[data-ajuste="1"] .nav-links .btn-principal,
+.cabecera .nav[data-ajuste="2"] .nav-links .btn-principal,
+.cabecera .nav[data-ajuste="3"] .nav-links .btn-principal { padding: 0 18px; }
+.cabecera .nav[data-ajuste="2"] .marca span,
+.cabecera .nav[data-ajuste="3"] .marca span { display: none; }
+.cabecera .nav[data-ajuste="3"] .nav-links { gap: 12px; }
+.cabecera .nav[data-ajuste="3"] .nav-links > .solo-escritorio { display: none; }
+
+/* Botón Menú: oculto mientras los enlaces quepan */
+.menu-cab { display: none; position: relative; }
+.cabecera .nav[data-ajuste="3"] .menu-cab { display: block; }
+.menu-cab-btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
+  border-radius: 999px; border: 1px solid var(--linea-2); background: transparent;
+  font: inherit; font-size: 15px; font-weight: 600; color: var(--tinta); cursor: pointer; white-space: nowrap;
+}
+.menu-cab-btn:hover { background: var(--blanco); }
+.menu-cab-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.menu-cab-lista {
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: 30; min-width: 240px;
+  display: flex; flex-direction: column; padding: 8px;
+  background: var(--marfil); border: 1px solid var(--linea); border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(23, 45, 56, .18);
+}
+.menu-cab-lista[hidden] { display: none; }
+.menu-cab-lista a {
+  display: flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 10px;
+  font-size: 16px; text-decoration: none; color: var(--tinta); white-space: nowrap;
+}
+.menu-cab-lista a:hover { background: var(--blanco); }
+
+/* En celular las letras de la marca no caben al lado del botón */
+@media (max-width: 520px) {
+  .menu-cab-btn span { display: none; }
+  .menu-cab-btn { padding: 0 12px; }
+  .cabecera .nav-links { gap: 8px; }
+  .cabecera .nav-links .btn-fav { padding: 0 12px; }
+  /* "Hablar con un asesor" → "Asesor" (la burbuja de WhatsApp sigue abajo) */
+  .cabecera .nav-links .btn-principal { font-size: 0; padding: 0 16px; }
+  .cabecera .nav-links .btn-principal::after { content: "Asesor"; font-size: 14px; }
+}

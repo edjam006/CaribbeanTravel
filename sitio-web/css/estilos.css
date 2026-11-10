@@ -142,7 +142,7 @@ a.tarjeta-media { display: block; color: inherit; text-decoration: none; }
 .salidas-botones .chip:hover { background: rgba(255,255,255,.12); }
 .salidas-botones .chip[aria-selected="true"] { background: #fff; color: var(--oceano); border-color: #fff; font-weight: 600; }
 .salidas-detalle { margin: 16px 0 0; font-size: 17px; }
-.salidas-avion { flex: 0 1 380px; width: 100%; max-width: 380px; height: auto; filter: drop-shadow(0 14px 20px rgba(0,0,0,.22)); }
+.salidas-avion { flex: 1 1 520px; width: 100%; max-width: 680px; height: auto; filter: drop-shadow(0 14px 20px rgba(0,0,0,.22)); }
 @media (max-width: 760px) {
   .salidas .contenedor { padding-top: 44px; padding-bottom: 44px; }
   .salidas-avion { max-width: 260px; }

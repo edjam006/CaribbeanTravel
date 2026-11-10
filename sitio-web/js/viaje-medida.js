@@ -87,7 +87,7 @@
     pax: { adultos: 2, mayores: 0, ninos: 0, bebes: 0 },
     discapacidad: false,
     clase: "Económica",
-    extras: { "Hotel": true, "Traslados": false, "Tours": false, "Seguro de viaje": false },
+    extras: { "Hotel": true, "Transfer": false, "Tours": false, "Seguro de viaje": false },
     notas: ""
   };
   var TIPOS = { "ida-vuelta": "Ida y vuelta", "solo-ida": "Solo ida", "multi": "Multidestino" };

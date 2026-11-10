@@ -1,0 +1,51 @@
+/* =========================================================
+   QUIÉNES SOMOS — franja azul encima del pie de página
+   Mismo azul y tipografía que .salidas.
+   ========================================================= */
+.nosotros { background: var(--oceano); color: #fff; margin-top: 80px; }
+.nosotros-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr);
+  gap: 72px;
+  align-items: center;
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+/* Izquierda: logo + letras */
+.nosotros-marca { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.nosotros-sello {
+  width: 168px; height: 168px; display: grid; place-items: center;
+  background: var(--marfil); border-radius: 999px;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, .12);
+}
+.nosotros-sello img { width: 132px; height: 132px; object-fit: contain; }
+.nosotros-nombre {
+  margin: 8px 0 0; font-size: 26px; font-weight: 600; letter-spacing: .32em; line-height: 1.35; color: #fff;
+}
+.nosotros-lugar { margin: 0; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: #E3EEF8; }
+
+/* Derecha: texto */
+.nosotros .eyebrow { color: #E3EEF8; }
+.nosotros .titulo { margin: 12px 0 20px; color: #fff; }
+.nosotros-desc { margin: 0; max-width: 720px; font-size: 18px; line-height: 1.6; color: #E3EEF8; }
+.nosotros-mv {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 40px;
+}
+.nosotros-mv > div { border-top: 2px solid var(--celeste); padding-top: 18px; }
+.nosotros-mv h3 {
+  margin: 0 0 8px; font-family: var(--serif); font-weight: 600; font-size: 30px; line-height: 1.1; color: #fff;
+}
+.nosotros-mv p { margin: 0; font-size: 16px; line-height: 1.6; color: #E3EEF8; }
+
+@media (max-width: 900px) {
+  .nosotros-grid { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; padding-bottom: 64px; }
+  .nosotros-marca { flex-direction: row; align-items: center; gap: 20px; }
+  .nosotros-sello { width: 112px; height: 112px; flex: 0 0 112px; }
+  .nosotros-sello img { width: 88px; height: 88px; }
+  .nosotros-nombre { font-size: 20px; margin: 0; }
+  .nosotros-lugar { display: none; }
+}
+@media (max-width: 640px) {
+  .nosotros-mv { grid-template-columns: 1fr; gap: 24px; }
+}
