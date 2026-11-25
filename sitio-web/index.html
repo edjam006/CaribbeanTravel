@@ -102,6 +102,7 @@
   <link rel="stylesheet" href="css/transfer.css">
   <link rel="stylesheet" href="css/nosotros.css">
   <link rel="stylesheet" href="css/cruceros.css">
+  <link rel="stylesheet" href="css/salidas.css">
 </head>
 <body>
 
@@ -170,18 +171,30 @@
   </section>
 
   <!-- Salidas confirmadas: se llenan desde el panel (pestaña "Salidas confirmadas") -->
-  <section class="salidas" id="salidas" aria-labelledby="salidas-titulo" hidden>
+  <section class="salidas sc-pro" id="salidas" aria-labelledby="salidas-titulo" hidden>
     <div class="contenedor">
       <div class="salidas-cabeza">
         <div class="salidas-texto">
           <p class="eyebrow" id="salidas-eyebrow">Próximos meses</p>
-          <h2 class="titulo t-l" id="salidas-titulo">Salidas confirmadas.</h2>
-          <div class="salidas-botones" id="salidas-botones" role="tablist" aria-label="Elige el destino"></div>
-          <p class="texto-suave salidas-detalle" id="salidas-detalle" aria-live="polite"></p>
+          <h2 class="titulo t-l sc-titulo" id="salidas-titulo">Salidas confirmadas <span class="sc-badge" id="sc-badge" hidden></span></h2>
+          <div class="sc-linea">
+            <p class="sc-sub" id="sc-sub"></p>
+            <div class="sc-meta" id="sc-meta"></div>
+          </div>
+          <div class="salidas-botones sc-botones" id="salidas-botones" role="tablist" aria-label="Elige el destino"></div>
         </div>
-        <img class="salidas-avion" id="salidas-avion" src="img/avion-aeroregional.png" alt="" width="1200" height="319">
+        <div class="sc-avion-caja" aria-hidden="true">
+          <svg class="sc-estela" viewBox="0 0 600 220" preserveAspectRatio="none"><path d="M0 200 C 160 190, 300 150, 420 95 S 560 30, 600 20"/></svg>
+          <img class="salidas-avion" id="salidas-avion" src="img/avion-aeroregional.png" alt="" width="1200" height="319">
+        </div>
       </div>
-      <div id="carril-salidas" class="carril"></div>
+      <div class="sc-ruta">
+        <p class="sc-ruta-tit">Ruta</p>
+        <ol class="sc-puertos" id="sc-puertos"></ol>
+      </div>
+      <ul class="sc-incluye" id="salidas-detalle" aria-live="polite"></ul>
+      <p class="sc-pista">Toca una fecha y reserva por WhatsApp.</p>
+      <div id="carril-salidas" class="carril sc-carril"></div>
     </div>
   </section>
 

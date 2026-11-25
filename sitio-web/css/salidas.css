@@ -1,0 +1,126 @@
+/* =========================================================
+   SALIDAS CONFIRMADAS — diseño igual al de Cruceros
+   Solo visual: los datos siguen saliendo del panel admin.
+   Va después de estilos.css y cruceros.css.
+   ========================================================= */
+.salidas.sc-pro {
+  position: relative; isolation: isolate; overflow: hidden; color: #fff;
+  /* Cielo: nubes suaves con transparencia azul (nunca azul plano) */
+  background:
+    radial-gradient(ellipse 38% 30% at 82% 18%, rgba(255,255,255,.30), transparent 70%),
+    radial-gradient(ellipse 30% 18% at 62% 40%, rgba(255,255,255,.14), transparent 70%),
+    radial-gradient(ellipse 45% 26% at 96% 62%, rgba(255,255,255,.16), transparent 70%),
+    radial-gradient(ellipse 55% 40% at 8% 100%, rgba(78,181,221,.28), transparent 70%),
+    linear-gradient(165deg, #3B92D3 0%, var(--oceano) 38%, #17508A 72%, #123E66 100%);
+}
+/* Brillo de sol arriba a la derecha */
+.salidas.sc-pro::before {
+  content: ""; position: absolute; z-index: -1; width: 520px; height: 520px; right: -140px; top: -220px;
+  border-radius: 50%; background: radial-gradient(circle, rgba(255,214,160,.35), rgba(255,214,160,0) 65%);
+}
+.sc-pro .contenedor { padding-top: 40px; padding-bottom: 32px; }
+.sc-pro .eyebrow { color: #E3EEF8; }
+.sc-pro .salidas-cabeza { align-items: center; gap: 8px 32px; }
+.sc-pro .salidas-texto { flex: 1 1 560px; max-width: 780px; }
+
+.sc-titulo { color: #fff; margin: 8px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.sc-badge {
+  display: inline-block; transform: rotate(-3deg);
+  background: var(--naranja); color: var(--tinta);
+  font-family: var(--sans); font-weight: 800; font-size: .5em; letter-spacing: .01em; text-transform: uppercase;
+  padding: .18em .55em .22em; border-radius: 12px; line-height: 1.05; white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+  animation: cr-latido 2.8s ease-in-out infinite;
+}
+.sc-badge[hidden] { display: none; }
+
+.sc-linea { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 12px; }
+.sc-sub { margin: 0; font-family: var(--serif); font-style: italic; font-size: 24px; color: #FFD3A6; }
+.sc-sub strong { font-family: var(--sans); font-style: normal; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; font-size: 19px; color: #fff; margin-left: 4px; }
+.sc-sub[hidden] { display: none; }
+.sc-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.sc-pill { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border-radius: 999px; background: var(--naranja); color: var(--tinta); font-size: 14px; font-weight: 700; }
+.sc-pill-borde { background: rgba(255,255,255,.12); color: #fff; font-weight: 500; border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(4px); }
+
+.sc-botones { margin-top: 16px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.sc-botones::-webkit-scrollbar { display: none; }
+.sc-botones .chip { flex: 0 0 auto; backdrop-filter: blur(4px); }
+
+/* Avión con estela punteada y vuelo suave */
+.sc-avion-caja { position: relative; flex: 1 1 320px; max-width: 520px; align-self: center; }
+.sc-avion-caja[hidden] { display: none; }
+.sc-estela { position: absolute; left: 2%; bottom: 10%; width: 58%; height: 70%; overflow: visible; z-index: 0; }
+.sc-estela path { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 2.5; stroke-dasharray: 2 10; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.sc-pro .salidas-avion {
+  position: relative; z-index: 1; display: block; width: 100%; max-width: none; height: auto;
+  filter: drop-shadow(0 18px 22px rgba(0,0,0,.28));
+  animation: sc-vuelo 5s ease-in-out infinite;
+}
+@keyframes sc-vuelo { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(6px, -8px) rotate(-.6deg); } }
+
+/* Ruta */
+.sc-ruta { margin-top: 12px; max-width: 640px; }
+.sc-ruta-tit { margin: 0 0 8px; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: #E3EEF8; }
+.sc-puertos { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; }
+.sc-puertos li {
+  position: relative; flex: 1 0 110px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  text-align: center; font-size: 14px; line-height: 1.3; color: #F1F6FB; padding: 0 6px;
+  animation: cr-entra .45s ease both;
+}
+.sc-puertos li:nth-child(2) { animation-delay: .08s; } .sc-puertos li:nth-child(3) { animation-delay: .16s; }
+.sc-puertos li::before {
+  content: ""; position: absolute; top: 13px; left: -50%; right: 50%; z-index: -1;
+  border-top: 2px dashed rgba(255,255,255,.55);
+}
+.sc-puertos li:first-child::before { display: none; }
+.sc-punto { width: 12px; height: 12px; margin: 8px 0 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px rgba(255,255,255,.2); }
+.sc-ancla { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--naranja); }
+.sc-ancla svg { width: 16px; height: 16px; fill: var(--tinta); }
+.sc-puertos li.extremo { font-weight: 700; color: #fff; }
+
+/* Qué incluye (lo que carga el admin) */
+.sc-incluye { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.sc-incluye[hidden] { display: none; }
+.sc-incluye li {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 14px 0 10px; border-radius: 999px;
+  background: rgba(18,62,102,.35); border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(4px);
+  font-size: 14px; color: #F1F6FB;
+}
+.sc-incluye strong { color: #fff; }
+.sc-incluye svg { flex: 0 0 18px; width: 18px; height: 18px; fill: none; stroke: var(--naranja); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.sc-pista { margin: 18px 0 0; font-size: 14px; color: #E3EEF8; }
+
+/* Fechas: tarjetas de vidrio; al pasar, se elevan y se ponen blancas */
+.sc-carril { margin-top: 8px; padding-top: 6px; padding-bottom: 8px; }
+.sc-pro .fecha.sc-fecha {
+  flex: 0 0 148px; gap: 4px; padding: 16px 20px; border: 1px solid rgba(255,255,255,.5); border-radius: 16px;
+  background: rgba(18,62,102,.35); backdrop-filter: blur(6px);
+  transition: background .25s ease, color .25s ease, border-color .25s ease, box-shadow .3s ease, transform .3s ease;
+}
+.sc-pro .fecha.sc-fecha:hover, .sc-pro .fecha.sc-fecha:focus-visible {
+  background: #fff; color: var(--tinta); border-color: #fff; transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.3);
+}
+.sc-pro .fecha.sc-fecha:focus-visible { outline: 3px solid var(--naranja); outline-offset: 2px; }
+.sc-pro .sc-fecha small { transition: color .25s; }
+.sc-pro .sc-fecha:hover small, .sc-pro .sc-fecha:focus-visible small { color: var(--oceano); font-weight: 600; }
+.sc-pro .sc-fecha:hover .dia, .sc-pro .sc-fecha:focus-visible .dia { color: var(--oceano); }
+.sc-fecha-pie { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 6px; }
+.sc-fecha-precio { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; background: var(--naranja); color: var(--tinta); font-size: 13px; font-weight: 700; white-space: nowrap; }
+.sc-fecha-ir { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.18); font-size: 14px; transition: background .25s, transform .25s; }
+.sc-fecha:hover .sc-fecha-ir, .sc-fecha:focus-visible .sc-fecha-ir { background: var(--naranja); color: var(--tinta); transform: translate(2px, -2px); }
+
+@media (max-width: 760px) {
+  .sc-pro .contenedor { padding-top: 32px; padding-bottom: 28px; }
+  .sc-pro .salidas-cabeza { flex-direction: column-reverse; align-items: stretch; }
+  .sc-pro .salidas-texto { flex: none; }
+  .sc-avion-caja { flex: 0 0 auto; max-width: 300px; margin: 0 0 4px auto; }
+  .sc-sub { font-size: 20px; }
+  .sc-sub strong { font-size: 16px; }
+  .sc-puertos li { flex-basis: 96px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sc-badge, .sc-pro .salidas-avion, .sc-puertos li { animation: none; }
+  .sc-pro .fecha.sc-fecha { transition: none; }
+}

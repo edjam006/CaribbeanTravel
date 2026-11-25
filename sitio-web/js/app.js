@@ -73,6 +73,8 @@
   /* ---------- Salidas confirmadas (tabla salidas_confirmadas, módulo aparte) ---------- */
   var DIAS_LARGOS = { DOM: "domingo", LUN: "lunes", MAR: "martes", "MIÉ": "miércoles", JUE: "jueves", VIE: "viernes", "SÁB": "sábado" };
 
+  var ICO_AVION = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 13.5 4 11l1.5-1.5 7 1 4-4c.8-.8 2.2-.8 3 0s.8 2.2 0 3l-4 4 1 7L15 22l-2.5-6.5L9 19v2.5L7.5 23 6 19l-4-1.5L3.5 16H6z"/></svg>';
+  var ICO_CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
   var salidasConf = [];
   var salidaActiva = 0;
 
@@ -109,25 +111,59 @@
       b.setAttribute("aria-selected", String(+b.getAttribute("data-salida") === i));
     });
 
-    var inc = s.incluye.map(function (x) { return [x.valor, x.titulo ? x.titulo.toLowerCase() : ""].filter(Boolean).join(" "); }).join(", ");
-    $("#salidas-detalle").textContent =
-      s.ruta + (s.aerolinea ? " con " + s.aerolinea : "") + "." +
-      (inc ? " Incluye: " + inc + "." : "") +
-      (s.precio != null ? " Desde " + API.dinero(s.precio) + " por persona." : "");
+    // ---- Encabezado: precio en la etiqueta naranja, aerolínea y píldoras ----
+    var badge = $("#sc-badge");
+    if (badge) {
+      badge.textContent = s.precio != null ? "Desde " + API.dinero(s.precio) : "";
+      badge.hidden = s.precio == null;
+    }
+    if ($("#sc-sub")) {
+      $("#sc-sub").innerHTML = s.aerolinea ? "con <strong>" + esc(s.aerolinea) + "</strong>" : "";
+      $("#sc-sub").hidden = !s.aerolinea;
+    }
+    var futurasSC = API.fechasFuturas(s.fechas);
+    if ($("#sc-meta")) {
+      $("#sc-meta").innerHTML =
+        '<span class="sc-pill">' + (s.idaVuelta ? "Ida y vuelta" : "Solo ida") + "</span>" +
+        '<span class="sc-pill sc-pill-borde">' + futurasSC.length + (futurasSC.length === 1 ? " salida confirmada" : " salidas confirmadas") + "</span>" +
+        (s.precio != null ? '<span class="sc-pill sc-pill-borde">Precio por persona</span>' : "");
+    }
+
+    // ---- Ruta: Quito → Panamá → Quito ----
+    var paradas = [s.origen, s.destino].concat(s.idaVuelta ? [s.origen] : []).filter(Boolean);
+    if ($("#sc-puertos")) {
+      $("#sc-puertos").innerHTML = paradas.map(function (p, k) {
+        var extremo = k === 0 || k === paradas.length - 1;
+        return '<li class="' + (extremo ? "extremo" : "") + '">' +
+          (extremo ? '<span class="sc-ancla">' + ICO_AVION + "</span>" : '<span class="sc-punto"></span>') +
+          "<span>" + esc(p) + "</span></li>";
+      }).join("");
+    }
+
+    // ---- Qué incluye (lo que carga el admin) ----
+    $("#salidas-detalle").innerHTML = s.incluye.map(function (x) {
+      return "<li>" + ICO_CHECK + "<span>" + [x.valor ? "<strong>" + esc(x.valor) + "</strong>" : "", esc(x.titulo || "")].filter(Boolean).join(" ") + "</span></li>";
+    }).join("");
+    $("#salidas-detalle").hidden = !s.incluye.length;
 
     // El avión de Aeroregional sale si la aerolínea es Aeroregional o está vacía
-    $("#salidas-avion").hidden = !!s.aerolinea && !/aeroregional/i.test(s.aerolinea);
+    var mostrarAvion = !(s.aerolinea && !/aeroregional/i.test(s.aerolinea));
+    $("#salidas-avion").hidden = !mostrarAvion;
+    var caja = $(".sc-avion-caja");
+    if (caja) caja.hidden = !mostrarAvion;
 
-    $("#carril-salidas").innerHTML = API.fechasFuturas(s.fechas).map(function (f) {
+    $("#carril-salidas").innerHTML = futurasSC.map(function (f) {
       var dia = DIAS_LARGOS[f.semana] || f.semana.toLowerCase();
       var msg = "Hola, quiero reservar la salida confirmada *" + s.ruta + "*" + (s.aerolinea ? " con " + s.aerolinea : "") +
         " del *" + dia + " " + f.dia + " de " + f.mes + " de " + f.anio + "*." +
         (s.precio != null ? " Precio desde " + API.dinero(s.precio) + " por persona." : "") +
         " ¿Hay cupos disponibles?";
-      return '<a class="fecha" href="' + esc(API.linkWhatsApp(msg)) + '" target="_blank" rel="noopener" aria-label="Reservar ' +
+      return '<a class="fecha sc-fecha" href="' + esc(API.linkWhatsApp(msg)) + '" target="_blank" rel="noopener" aria-label="Reservar ' +
         esc(s.ruta) + ", " + dia + " " + f.dia + " de " + f.mes + ' por WhatsApp">' +
         "<small>" + f.semana + '</small><span class="dia">' + f.dia + "</span>" +
-        "<small>" + f.mesCorto + (s.precio != null ? " · desde " + API.dinero(s.precio) : "") + "</small></a>";
+        "<small>" + f.mesCorto + " " + f.anio + "</small>" +
+        '<span class="sc-fecha-pie">' + (s.precio != null ? '<span class="sc-fecha-precio">' + API.dinero(s.precio) + "</span>" : '<span class="sc-fecha-precio">Consultar</span>') +
+        '<span class="sc-fecha-ir" aria-hidden="true">↗</span></span></a>';
     }).join("");
     $("#carril-salidas").scrollLeft = 0;
   }
