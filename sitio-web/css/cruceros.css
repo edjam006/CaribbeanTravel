@@ -1,0 +1,158 @@
+/* =========================================================
+   CRUCEROS — Caribbean Travel
+   Franja del MSC Opera. Usa los colores de estilos.css.
+   ========================================================= */
+.cruceros {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-top: 64px; scroll-margin-top: 90px; color: #fff;
+  background: #123E66 url("../img/crucero-msc-opera.jpg") 78% 42% / cover no-repeat;
+}
+/* Foto del barco con transparencia azul encima (nunca azul plano) */
+.cruceros::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(18,62,102,0) 38%, rgba(18,62,102,.92) 78%),
+    linear-gradient(90deg, rgba(18,62,102,.97) 0%, rgba(31,111,181,.9) 34%, rgba(31,111,181,.35) 62%, rgba(31,111,181,.08) 100%);
+}
+.salidas + .cruceros { margin-top: 0; border-top: 1px solid rgba(255,255,255,.18); }
+.cruceros .contenedor { padding-top: 40px; padding-bottom: 32px; }
+.cruceros .eyebrow { color: #E3EEF8; }
+
+.cr-texto { max-width: 760px; }
+/* Subtítulo y píldoras en una sola línea (bajan solas si no entran) */
+.cr-linea { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 12px; }
+.cr-titulo { color: #fff; margin: 8px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.cr-sinvisa {
+  display: inline-block; transform: rotate(-3deg);
+  background: var(--naranja); color: var(--tinta);
+  font-family: var(--sans); font-weight: 800; font-size: .62em; letter-spacing: .02em; text-transform: uppercase;
+  padding: .14em .5em .18em; border-radius: 12px; line-height: 1.05;
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+  animation: cr-latido 2.8s ease-in-out infinite;
+}
+@keyframes cr-latido { 0%, 100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(-3deg) scale(1.05); } }
+.cr-sub { margin: 0; font-family: var(--serif); font-style: italic; font-size: 24px; color: #FFD3A6; }
+.cr-sub strong { font-family: var(--sans); font-style: normal; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; font-size: 19px; color: #fff; margin-left: 4px; }
+.cr-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.cr-pill { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border-radius: 999px; background: var(--naranja); color: var(--tinta); font-size: 14px; font-weight: 700; }
+.cr-pill-borde { background: rgba(255,255,255,.12); color: #fff; font-weight: 500; border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(4px); }
+.cr-pill:empty { display: none; }
+
+/* Botones de ruta: en una sola fila que se desliza */
+.cr-botones { margin-top: 16px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.cr-botones::-webkit-scrollbar { display: none; }
+.cr-botones .chip { flex: 0 0 auto; backdrop-filter: blur(4px); }
+
+/* Recorrido */
+.cr-ruta { margin-top: 20px; }
+.cr-ruta-tit { margin: 0 0 8px; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: #E3EEF8; display: flex; align-items: center; gap: 10px; }
+.cr-etq { letter-spacing: .08em; background: var(--naranja); color: var(--tinta); font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+.cr-etq[hidden] { display: none; }
+.cr-puertos {
+  list-style: none; margin: 0; padding: 0 0 6px; display: flex; align-items: flex-start;
+  overflow-x: auto; scrollbar-width: thin;
+}
+.cr-puertos li {
+  position: relative; flex: 1 0 118px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  text-align: center; font-size: 13px; line-height: 1.3; color: #F1F6FB; padding: 0 6px;
+  text-shadow: 0 1px 3px rgba(10,35,60,.85), 0 0 12px rgba(10,35,60,.6);
+  animation: cr-entra .45s ease both;
+}
+.cr-puertos li:nth-child(2) { animation-delay: .05s; } .cr-puertos li:nth-child(3) { animation-delay: .1s; }
+.cr-puertos li:nth-child(4) { animation-delay: .15s; } .cr-puertos li:nth-child(5) { animation-delay: .2s; }
+.cr-puertos li:nth-child(n+6) { animation-delay: .25s; }
+/* línea punteada entre puertos */
+.cr-puertos li::before {
+  content: ""; position: absolute; top: 13px; left: -50%; right: 50%; z-index: -1;
+  border-top: 2px dashed rgba(255,255,255,.55);
+}
+.cr-puertos li:first-child::before { display: none; }
+.cr-punto { width: 12px; height: 12px; margin: 8px 0 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px rgba(255,255,255,.2); }
+.cr-ancla { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--naranja); }
+.cr-ancla svg { width: 16px; height: 16px; fill: none; stroke: var(--tinta); stroke-width: 2; stroke-linecap: round; }
+.cr-puertos li.extremo { font-weight: 700; color: #fff; }
+@keyframes cr-entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.cr-pista { margin: 0; font-size: 14px; color: #E3EEF8; text-shadow: 0 1px 3px rgba(10,35,60,.7); }
+
+/* Fechas */
+.cr-carril { margin-top: 8px; align-items: stretch; padding-top: 6px; padding-bottom: 8px; }
+.cr-fecha {
+  flex: 0 0 148px; scroll-snap-align: start; position: relative;
+  display: flex; border: 1px solid rgba(255,255,255,.5); border-radius: 16px;
+  background: rgba(18,62,102,.35); backdrop-filter: blur(6px);
+  transition: flex-basis .3s ease, background .25s ease, border-color .25s ease, box-shadow .3s ease, transform .3s ease;
+}
+.cr-fecha:hover { background: rgba(255,255,255,.12); }
+.cr-fecha-btn {
+  flex: 0 0 146px; display: flex; flex-direction: column; gap: 4px; padding: 16px 20px; text-align: left;
+  background: none; border: 0; color: inherit; font: inherit; cursor: pointer; border-radius: 16px;
+}
+.cr-fecha-btn small { font-size: 13px; color: #E3EEF8; transition: color .25s; }
+.cr-fecha-btn .dia { font-family: var(--serif); font-size: 48px; line-height: 1; transition: font-size .3s ease; }
+.cr-fecha-btn:focus-visible { outline: 3px solid var(--naranja); outline-offset: 2px; }
+
+/* Fecha elegida: se agranda y muestra las cabinas */
+.cr-fecha.abierta {
+  flex-basis: 360px; background: #fff; color: var(--tinta); border-color: #fff;
+  box-shadow: 0 18px 40px rgba(0,0,0,.3); transform: translateY(-4px);
+}
+.cr-fecha.abierta .cr-fecha-btn small { color: var(--oceano); font-weight: 600; }
+.cr-fecha.abierta .cr-fecha-btn .dia { font-size: 64px; color: var(--oceano); }
+.cr-cabinas {
+  flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 12px 14px 12px 0; min-width: 0;
+  animation: cr-entra .3s ease both;
+}
+.cr-cabinas[hidden] { display: none; }
+.cr-cabinas p { margin: 0; font-size: 13px; font-weight: 700; color: var(--tinta); }
+.cr-cab {
+  display: flex; align-items: center; gap: 10px; padding: 7px 12px; border-radius: 12px;
+  border: 1.5px solid var(--linea); color: var(--tinta); text-decoration: none; background: var(--papel);
+  transition: background .2s, border-color .2s, transform .15s;
+}
+.cr-cab:hover { background: var(--naranja); border-color: var(--naranja); color: var(--tinta); transform: translateX(2px); }
+.cr-cab svg { flex: 0 0 26px; width: 26px; height: 26px; fill: none; stroke: var(--oceano); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.cr-cab:hover svg { stroke: var(--tinta); }
+.cr-cab span { display: flex; flex-direction: column; line-height: 1.15; }
+.cr-cab strong { font-size: 15px; }
+.cr-cab small { font-size: 12px; color: var(--tinta-2, #3E5561); }
+
+/* Barra: pista a la izquierda y "Qué incluye" a la derecha */
+.cr-barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; margin-top: 16px; }
+.cr-incluye-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 16px;
+  border: 1px solid rgba(255,255,255,.4); border-radius: 999px; background: rgba(18,62,102,.35); backdrop-filter: blur(4px);
+  color: #fff; font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
+}
+.cr-incluye-btn:hover { background: rgba(255,255,255,.14); }
+.cr-incluye-btn::after { content: "+"; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.18); font-size: 18px; transition: transform .25s; }
+.cr-incluye-btn[aria-expanded="true"]::after { transform: rotate(45deg); }
+.cr-incluye-btn:focus-visible { outline: 3px solid var(--naranja); outline-offset: 2px; }
+.cr-incluye {
+  list-style: none; margin: 10px 0 0; padding: 16px 20px; border-radius: 16px;
+  background: rgba(18,62,102,.55); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.25);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px 32px;
+  animation: cr-entra .3s ease both;
+}
+.cr-incluye[hidden] { display: none; }
+.cr-incluye li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: #F1F6FB; }
+.cr-incluye svg { flex: 0 0 20px; width: 20px; height: 20px; margin-top: 1px; fill: none; stroke: var(--naranja); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (max-width: 760px) {
+  .cruceros { background-position: 70% 0; background-size: auto 420px; background-color: #123E66; }
+  .cruceros::before {
+    background: linear-gradient(180deg, rgba(31,111,181,.55) 0%, rgba(18,62,102,.88) 260px, #123E66 420px);
+  }
+  .cruceros .contenedor { padding-top: 32px; padding-bottom: 28px; }
+  .cr-sub { font-size: 20px; }
+  .cr-incluye { padding: 14px 16px; }
+  .cr-sub strong { font-size: 16px; }
+  .cr-puertos li { flex-basis: 104px; font-size: 12px; }
+  .cr-fecha.abierta { flex-basis: min(320px, calc(100vw - 48px)); }
+  .cr-fecha.abierta .cr-fecha-btn { flex-basis: 112px; }
+  .cr-fecha.abierta .cr-fecha-btn .dia { font-size: 54px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cr-sinvisa, .cr-puertos li, .cr-cabinas { animation: none; }
+  .cr-fecha { transition: none; }
+}

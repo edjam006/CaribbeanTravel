@@ -31,6 +31,7 @@
   <nav class="adm-tabs" id="adm-tabs" role="tablist" aria-label="Módulos del panel" hidden>
     <button type="button" role="tab" aria-selected="true" data-modulo="destinos">Destinos</button>
     <button type="button" role="tab" aria-selected="false" data-modulo="salidas">Salidas confirmadas</button>
+    <button type="button" role="tab" aria-selected="false" data-modulo="cruceros">Cruceros</button>
   </nav>
 
   <!-- Cargando -->
@@ -276,6 +277,88 @@
       <p class="adm-error" id="sc-editor-error" role="alert" hidden></p>
     </form>
   </section>
+  <!-- ===================== CRUCEROS ===================== -->
+  <!-- Lista de rutas -->
+  <section id="vista-cr-lista" hidden>
+    <div class="adm-cabeza">
+      <div>
+        <p class="eyebrow">Administración · MSC Opera, sin visa</p>
+        <h1 class="titulo t-l">Cruceros</h1>
+      </div>
+      <div class="adm-acciones">
+        <button type="button" class="btn btn-principal" id="cr-btn-nuevo">+ Nueva ruta de crucero</button>
+      </div>
+    </div>
+    <p class="adm-ayuda" style="margin:0 0 16px">Cada ruta es un botón en la franja "MSC Crucero" de la portada (Catalina Island, Road Town…). Al tocar una fecha, el cliente elige cabina Interior o Exterior y abre WhatsApp con la ruta, el recorrido, la fecha y la cabina. Lo que incluye el crucero es fijo y no se edita aquí.</p>
+    <p class="texto-suave" id="cr-resumen"></p>
+    <ul class="adm-lista" id="cr-lista"></ul>
+  </section>
+
+  <!-- Editor de ruta -->
+  <section id="vista-cr-editor" hidden>
+    <form id="form-crucero" novalidate>
+      <div class="adm-cabeza">
+        <div>
+          <button type="button" class="adm-enlace" id="cr-btn-volver">← Volver a cruceros</button>
+          <h1 class="titulo t-l" id="cr-editor-titulo">Nueva ruta de crucero</h1>
+        </div>
+        <div class="adm-acciones">
+          <button type="button" class="btn btn-borde adm-peligro" id="cr-btn-borrar" hidden>Borrar</button>
+          <button type="submit" class="btn btn-principal" id="cr-btn-guardar">Guardar ruta</button>
+        </div>
+      </div>
+
+      <div class="adm-editor">
+        <div class="adm-col">
+          <fieldset class="adm-bloque">
+            <legend>Ruta</legend>
+            <div class="adm-fila">
+              <label class="campo">Nombre del botón *<input name="nombre" maxlength="40" required placeholder="Catalina Island"></label>
+              <label class="campo">Etiqueta<input name="etiqueta" maxlength="20" placeholder="Ruta 1"></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Recorrido (puertos en orden)</legend>
+            <p class="adm-ayuda">Un puerto por fila, del primero al último. Ej. La Romana → Road Town (Tórtola) → … → La Romana. Usa ↑ ↓ para cambiar el orden.</p>
+            <ol id="cr-recorrido" class="adm-filas cr-adm-puertos"></ol>
+            <button type="button" class="adm-enlace" id="cr-btn-add-puerto">+ Agregar puerto</button>
+            <p class="adm-ayuda" id="cr-recorrido-vista"></p>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Qué incluye (fijo)</legend>
+            <ul class="cr-adm-incluye" id="cr-incluye-fijo"></ul>
+          </fieldset>
+        </div>
+
+        <div class="adm-col adm-col-lateral">
+          <fieldset class="adm-bloque">
+            <legend>Barco y duración</legend>
+            <label class="campo">Barco<input name="barco" maxlength="40" placeholder="MSC Opera"></label>
+            <label class="campo">Duración<input name="duracion" maxlength="40" placeholder="8 días / 7 noches"></label>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Fechas de salida</legend>
+            <div class="adm-fecha-nueva">
+              <label class="campo">Fecha<input type="date" id="cr-input-fecha"></label>
+              <button type="button" class="btn btn-borde" id="cr-btn-add-fecha">Agregar</button>
+            </div>
+            <ul class="adm-chips" id="cr-fechas"></ul>
+            <p class="adm-ayuda">Sin precio: el cliente elige la cabina y la asesora cotiza. Las fechas pasadas se ocultan solas en el sitio. Si no quedan fechas futuras, la ruta no se muestra.</p>
+          </fieldset>
+
+          <fieldset class="adm-bloque">
+            <legend>Publicación</legend>
+            <label class="adm-switch"><input type="checkbox" name="publicado" checked><span>Publicada (visible en la portada)</span></label>
+            <label class="campo">Orden (menor = primero)<input name="orden" type="number" step="1" value="0"></label>
+          </fieldset>
+        </div>
+      </div>
+      <p class="adm-error" id="cr-editor-error" role="alert" hidden></p>
+    </form>
+  </section>
 </main>
 
 <div class="adm-toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -286,5 +369,6 @@
 <script src="../js/api.js"></script>
 <script src="admin.js"></script>
 <script src="salidas.js"></script>
+<script src="cruceros.js"></script>
 </body>
 </html>

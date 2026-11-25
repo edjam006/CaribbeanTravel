@@ -25,8 +25,8 @@
   var migracionIncompleta = false;
 
   /* ---------- Utilidades de interfaz ---------- */
-  var VISTAS = ["cargando", "config", "login", "nueva-clave", "noadmin", "lista", "editor", "sc-lista", "sc-editor"];
-  var VISTAS_PANEL = { "lista": "destinos", "editor": "destinos", "sc-lista": "salidas", "sc-editor": "salidas" };
+  var VISTAS = ["cargando", "config", "login", "nueva-clave", "noadmin", "lista", "editor", "sc-lista", "sc-editor", "cr-lista", "cr-editor"];
+  var VISTAS_PANEL = { "lista": "destinos", "editor": "destinos", "sc-lista": "salidas", "sc-editor": "salidas", "cr-lista": "cruceros", "cr-editor": "cruceros" };
   function mostrar(v) {
     VISTAS.forEach(function (n) { $("#vista-" + n).hidden = n !== v; });
     // Pestañas Destinos / Salidas confirmadas: visibles solo dentro del panel
@@ -100,16 +100,18 @@
     cargarLista();
   }
 
-  /* ---------- Pestañas: Destinos | Salidas confirmadas ---------- */
+  /* ---------- Pestañas: Destinos | Salidas confirmadas | Cruceros ---------- */
   $("#adm-tabs").addEventListener("click", function (e) {
     var t = e.target.closest("[data-modulo]");
     if (!t || t.getAttribute("aria-selected") === "true") return;
-    var SC = window.CT_SALIDAS_ADMIN;
-    if ((sucio || (SC && SC.haySinGuardar())) && !confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) return;
+    var SC = window.CT_SALIDAS_ADMIN, CR = window.CT_CRUCEROS_ADMIN;
+    if ((sucio || (SC && SC.haySinGuardar()) || (CR && CR.haySinGuardar())) && !confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) return;
     sucio = false;
     if (SC) SC.descartar();
-    if (SC) SC.descartar();
-    if (t.getAttribute("data-modulo") === "salidas") { if (SC) SC.cargar(); }
+    if (CR) CR.descartar();
+    var modulo = t.getAttribute("data-modulo");
+    if (modulo === "salidas") { if (SC) SC.cargar(); }
+    else if (modulo === "cruceros") { if (CR) CR.cargar(); }
     else cargarLista();
   });
 
@@ -150,8 +152,8 @@
   });
 
   $("#btn-salir").addEventListener("click", async function () {
-    var SC = window.CT_SALIDAS_ADMIN;
-    if ((sucio || (SC && SC.haySinGuardar())) && !confirm("Tienes cambios sin guardar. ¿Salir de todas formas?")) return;
+    var SC = window.CT_SALIDAS_ADMIN, CR = window.CT_CRUCEROS_ADMIN;
+    if ((sucio || (SC && SC.haySinGuardar()) || (CR && CR.haySinGuardar())) && !confirm("Tienes cambios sin guardar. ¿Salir de todas formas?")) return;
     sucio = false;
     await sb.auth.signOut();
   });

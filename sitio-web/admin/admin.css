@@ -136,3 +136,18 @@ button[disabled].btn { opacity: .6; cursor: progress; }
 .adm-tabs button[aria-selected="true"] { background: var(--tinta); color: var(--marfil); }
 .adm-mini-sc { display: grid; place-items: center; background: var(--oceano); color: #fff; font-size: 30px; }
 @media (max-width: 680px) { .adm-tabs { width: 100%; } .adm-tabs button { flex: 1; padding: 0 14px; font-size: 15px; } }
+
+/* ---------- Cruceros: recorrido y "qué incluye" fijo ---------- */
+.cr-adm-puertos { list-style: none; margin: 0 0 8px; padding: 0; }
+.cr-adm-puerto { grid-template-columns: 28px minmax(0, 1fr) 44px 44px 44px; }
+.cr-adm-puerto .num {
+  grid-column: auto; margin: 0; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--oceano); color: #fff; font-weight: 700; letter-spacing: 0;
+}
+.cr-adm-puerto .adm-x[data-mover]:hover { background: var(--papel); color: var(--tinta); border-color: var(--linea-2); }
+@media (max-width: 560px) {
+  .cr-adm-puerto { grid-template-columns: 28px minmax(0, 1fr) 40px 40px 40px; gap: 6px; }
+  .cr-adm-puerto .adm-x { width: 40px; height: 40px; }
+}
+.cr-adm-incluye { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; color: var(--tinta-2); }
+.cr-adm-ruta { font-size: 13px; color: var(--tinta-3); margin: 2px 0 6px; }

@@ -154,6 +154,48 @@
       });
   }
 
+  /* ---------- Cruceros (tabla cruceros: una fila por ruta) ---------- */
+  // Lo que incluye el crucero es fijo: no lo edita el admin.
+  var CRUCERO_INCLUYE = [
+    "Noches de crucero en cabina seleccionada",
+    "Alojamiento en categoría seleccionada",
+    "Plan de alimentación completo, durante las tres comidas principales",
+    "Espectáculos, shows y actividades recreativas diarias",
+    "Bebidas de la casa durante las comidas: ice tea, jugo y agua natural",
+    "Desembarco en los lugares de acuerdo al itinerario",
+    "Impuestos de puerto"
+  ];
+
+  function normalizarCrucero(c) {
+    return {
+      id: c.id,
+      nombre: c.nombre || "",
+      etiqueta: c.etiqueta || "",
+      recorrido: (c.recorrido || []).map(function (p) { return String(p).trim(); }).filter(Boolean),
+      barco: c.barco || "MSC Opera",
+      duracion: c.duracion || "8 días / 7 noches",
+      fechas: (c.fechas || []).map(function (f) { return String(f).slice(0, 10); }).sort(),
+      publicado: c.publicado !== false,
+      orden: c.orden || 0
+    };
+  }
+
+  // Rutas publicadas con al menos una fecha futura. Si falla, lista vacía (la sección se oculta).
+  function listarCruceros() {
+    var sb = clientePublico();
+    if (!sb) return Promise.resolve([]);
+    return sb.from("cruceros").select("*").eq("publicado", true)
+      .order("orden", { ascending: true }).order("creado_en", { ascending: true })
+      .then(function (r) {
+        if (r.error) throw r.error;
+        return r.data.map(normalizarCrucero).filter(function (c) { return fechasFuturas(c.fechas).length; });
+      })
+      .catch(function (e) {
+        console.warn("[Caribbean Travel] No se pudieron leer los cruceros.", e);
+        return [];
+      });
+  }
+
   /* ---------- Utilidades compartidas ---------- */
   function linkWhatsApp(texto) {
     return "https://wa.me/" + (C.whatsapp || "593987620947") + "?text=" + encodeURIComponent(texto);
@@ -179,6 +221,9 @@
     fechasFuturas: fechasFuturas,
     normalizarSalidaConfirmada: normalizarSalidaConfirmada,
     listarSalidasConfirmadas: listarSalidasConfirmadas,
+    normalizarCrucero: normalizarCrucero,
+    listarCruceros: listarCruceros,
+    CRUCERO_INCLUYE: CRUCERO_INCLUYE,
     infoFecha: infoFecha,
     linkWhatsApp: linkWhatsApp,
     escapar: escapar,
