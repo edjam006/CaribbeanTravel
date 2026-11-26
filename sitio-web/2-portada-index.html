@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MGN95BTV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<script>
+  (function () {
+    function avisar() {
+      (window.dataLayer = window.dataLayer || []).push({
+        event: 'whatsapp_click',
+        wa_pagina: location.pathname + location.search
+      });
+    }
+    // Botones que abren WhatsApp con JavaScript
+    var abrir = window.open;
+    window.open = function (url) {
+      try { if (url && /wa\.me|whatsapp\.com/i.test(url)) avisar(); } catch (e) {}
+      return abrir.apply(window, arguments);
+    };
+    // Enlaces normales a WhatsApp
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (a) avisar();
+    }, true);
+  })();
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caribbean Travel · Paquetes y vuelos desde Ecuador</title>
+  <meta name="description" content="Agencia de viajes en Quito. Paquetes a Panamá, Cartagena, Punta Cana, Galápagos y más, con asesoría personalizada por WhatsApp.">
+  <link rel="canonical" href="https://caribbeantravelvacaciones.com/">
+
+  <!-- Ícono que Google muestra junto al resultado y en la pestaña -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Vista previa al compartir en WhatsApp, Facebook, etc. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Caribbean Travel">
+  <meta property="og:locale" content="es_EC">
+  <meta property="og:title" content="Caribbean Travel · Paquetes y vuelos desde Ecuador">
+  <meta property="og:description" content="Agencia de viajes en Quito. Paquetes a Panamá, Cartagena, Punta Cana, Galápagos y más, con asesoría personalizada por WhatsApp.">
+  <meta property="og:url" content="https://caribbeantravelvacaciones.com/">
+  <meta property="og:image" content="https://caribbeantravelvacaciones.com/og-portada.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Datos de la empresa para Google (logo, dirección, teléfono, redes) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "@id": "https://caribbeantravelvacaciones.com/#agencia",
+    "name": "Caribbean Travel",
+    "legalName": "Caribbeantravel S.A.S.",
+    "slogan": "Tú mejor opción para vacacionar",
+    "url": "https://caribbeantravelvacaciones.com/",
+    "logo": "https://caribbeantravelvacaciones.com/logo-512.png",
+    "image": "https://caribbeantravelvacaciones.com/og-portada.jpg",
+    "telephone": "+593987620947",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. América N37-274 y Villalengua, Edificio Módulos PB",
+      "addressLocality": "Quito",
+      "addressRegion": "Pichincha",
+      "postalCode": "170510",
+      "addressCountry": "EC"
+    },
+    "areaServed": "EC",
+    "priceRange": "$$",
+    "sameAs": [
+      "https://www.instagram.com/caribbeantravelec/",
+      "https://www.tiktok.com/@caribbean.travelec",
+      "https://www.facebook.com/CaribbeanTravelEC/"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Caribbean Travel",
+    "url": "https://caribbeantravelvacaciones.com/",
+    "publisher": { "@id": "https://caribbeantravelvacaciones.com/#agencia" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/registro.css">
+  <link rel="stylesheet" href="css/carrusel.css">
+  <link rel="stylesheet" href="css/seguro.css">
+  <link rel="stylesheet" href="css/logo.css">
+  <link rel="stylesheet" href="css/transfer.css">
+  <link rel="stylesheet" href="css/nosotros.css">
+  <link rel="stylesheet" href="css/cruceros.css">
+  <link rel="stylesheet" href="css/salidas.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <nav class="contenedor nav" aria-label="Principal">
+    <a class="marca" href="index.html" aria-label="Caribbean Travel, inicio"><img src="img/logo.png" alt="" width="64" height="64"><span>CARIBBEAN TRAVEL</span></a>
+    <div class="nav-links">
+      <a class="solo-escritorio" href="#destinos">Tours</a>
+      <a class="solo-escritorio" href="#cruceros">Cruceros</a>
+      <a class="solo-escritorio" href="#salidas">Salidas confirmadas</a>
+      <a class="solo-escritorio" href="#seguro">Seguro de viaje</a>
+      <a class="solo-escritorio" href="#como">Cómo funciona</a>
+      <a class="solo-escritorio" href="#faq">Preguntas</a>
+      <button type="button" class="btn btn-borde btn-fav" data-ver-favs aria-pressed="false" aria-label="Ver mis favoritos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+        <span data-contador-favs>0</span>
+      </button>
+      <a class="btn btn-principal" href="#" data-wa="Hola, quiero planificar un viaje">Hablar con un asesor</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- CABECERA CAMBIAR A INFORMACION IMPORTANTE DEL MES -->
+  <section class="contenedor hero" id="inicio">
+    <div class="hero-texto">
+      <p class="eyebrow">Agencia de viajes · Quito</p>
+      <h1 class="titulo t-xl">DESTINOS<br>DEL MES.</h1>
+      <p class="texto-suave">Paquetes, vuelos y viajes a medida desde Ecuador. Tú eliges las fechas; nosotros cuidamos el resto, desde la reserva hasta tu regreso.</p>
+      <a class="btn btn-principal" href="#registro" data-abrir-registro>PARA PROMOCIONES, REGISTRARSE AQUI</a>
+    </div>
+
+    <!-- CARRUSEL: fotos en img/carrusel/ como 1.jpg, 2.jpg, 3.jpg...
+         Leyendas y enlaces en el mismo orden, separados por | -->
+    <figure class="hero-foto carrusel" data-carrusel
+            data-carpeta="img/carrusel/"
+            data-intervalo="2000"
+            data-leyendas="CASCO ANTIGUO · PANAMÁ | CARTAGENA · COLOMBIA | GALAPAGOS · ECUADOR"
+            data-enlaces="/destino?d=panama | /destino?d=cartagena | /destino?d=galapagos">
+      <a class="carrusel-enlace" href="/destino?d=panama">
+        <div class="carrusel-marco">
+          <img class="carrusel-foto activa" src="img/panama-casco.jpg" alt="Calle del Casco Antiguo de Panamá con balcones y flores">
+        </div>
+      </a>
+      <figcaption class="carrusel-leyenda">CASCO ANTIGUO · PANAMÁ</figcaption>
+    </figure>
+  </section>
+
+  <!-- Buscador -->
+  <section class="contenedor" aria-label="Buscador">
+    <div class="buscador">
+      <div class="pestanas" role="tablist">
+        <button type="button" class="chip" role="tab" aria-selected="true" data-pestana="Paquete">Paquetes</button>
+        <button type="button" class="chip" role="tab" aria-selected="false" data-pestana="Solo vuelo">Solo vuelos</button>
+        <button type="button" class="chip" role="tab" aria-selected="false" data-pestana="Viaje a medida">Viaje a medida</button>
+      </div>
+      <form id="form-buscar" class="campos">
+        <label class="campo">Desde<input name="desde" type="text" value="Quito (UIO)"></label>
+        <label class="campo" style="flex-grow:1.4">¿A dónde?<input name="destino" type="text" placeholder="Panamá, Cartagena, Galápagos…" list="lista-destinos"></label>
+        <label class="campo">Fechas<input name="fechas" type="text" placeholder="Ida — vuelta"></label>
+        <label class="campo" style="flex-grow:.8">Viajeros<input name="viajeros" type="text" value="2 adultos"></label>
+        <button id="btn-buscar" class="btn btn-principal" type="submit">Buscar paquetes</button>
+        <datalist id="lista-destinos"></datalist>
+      </form>
+    </div>
+  </section>
+
+  <!-- Salidas confirmadas: se llenan desde el panel (pestaña "Salidas confirmadas") -->
+  <section class="salidas sc-pro" id="salidas" aria-labelledby="salidas-titulo" hidden>
+    <div class="contenedor">
+      <div class="salidas-cabeza">
+        <div class="salidas-texto">
+          <p class="eyebrow" id="salidas-eyebrow">Próximos meses</p>
+          <h2 class="titulo t-l sc-titulo" id="salidas-titulo">Salidas confirmadas <span class="sc-badge" id="sc-badge" hidden></span></h2>
+          <div class="sc-linea">
+            <p class="sc-sub" id="sc-sub"></p>
+            <div class="sc-meta" id="sc-meta"></div>
+          </div>
+          <div class="salidas-botones sc-botones" id="salidas-botones" role="tablist" aria-label="Elige el destino"></div>
+        </div>
+        <div class="sc-avion-caja" aria-hidden="true">
+          <svg class="sc-estela" viewBox="0 0 600 220" preserveAspectRatio="none"><path d="M0 200 C 160 190, 300 150, 420 95 S 560 30, 600 20"/></svg>
+          <img class="salidas-avion" id="salidas-avion" src="img/avion-aeroregional.png" alt="" width="1200" height="319">
+        </div>
+      </div>
+      <div class="sc-ruta">
+        <p class="sc-ruta-tit">Ruta</p>
+        <ol class="sc-puertos" id="sc-puertos"></ol>
+      </div>
+      <ul class="sc-incluye" id="salidas-detalle" aria-live="polite"></ul>
+      <p class="sc-pista">Toca una fecha y reserva por WhatsApp.</p>
+      <div id="carril-salidas" class="carril sc-carril"></div>
+    </div>
+  </section>
+
+  <!-- Destinos -->
+  <section class="contenedor seccion" id="destinos">
+    <div class="seccion-cabeza">
+      <div>
+        <p class="eyebrow">Escapadas 2026</p>
+        <h2 class="titulo t-l" style="margin-top:8px">NUESTROS TOURS</h2>
+      </div>
+      <p id="cuenta-destinos" class="texto-suave" style="margin:0"></p>
+    </div>
+    <div class="filtros">
+      <button type="button" class="chip" data-filtro="todos" aria-pressed="true">Todos</button>
+      <button type="button" class="chip" data-filtro="playa" aria-pressed="false">Playa</button>
+      <button type="button" class="chip" data-filtro="ciudad" aria-pressed="false">Ciudad</button>
+      <button type="button" class="chip" data-filtro="naturaleza" aria-pressed="false">Naturaleza</button>
+      <button type="button" class="chip" data-filtro="sabores" aria-pressed="false">Gastronomía</button>
+      <button type="button" class="chip" data-filtro="cerca" aria-pressed="false">A pocas horas</button>
+    </div>
+    <div id="grilla-destinos" class="grilla" aria-live="polite"></div>
+  </section>
+
+  <!-- Seguro de viaje -->
+  <section class="contenedor seccion seguro" id="seguro">
+    <div class="seguro-texto">
+      <p class="eyebrow">Seguro de viaje</p>
+      <h2 class="titulo t-l">Viaja protegido,<br>estés donde estés.</h2>
+      <p class="texto-suave">Un seguro de viaje te cubre si algo sale de lo planeado fuera del país: atención médica por accidente o enfermedad, medicinas y asistencia las 24 horas. Así un imprevisto no se convierte en un gasto enorme lejos de casa.</p>
+      <div class="seguro-acciones">
+        <button type="button" class="btn btn-principal" data-abrir-seguro="normal">Adquiere tu seguro</button>
+        <button type="button" class="btn btn-borde" data-abrir-seguro="estudiantil">Seguro estudiantil</button>
+      </div>
+    </div>
+
+    <div class="seguro-panel">
+      <img class="sello-logo" src="img/logo.png" alt="" width="64" height="64">
+      <p class="seguro-panel-titulo">Cobertura en</p>
+      <ul class="seguro-zonas">
+        <li>Europa</li>
+        <li>Asia</li>
+        <li>América</li>
+      </ul>
+      <div class="seguro-precio">
+        <span>Desde</span>
+        <strong>USD 3</strong>
+        <span>por día</span>
+      </div>
+      <p class="seguro-nota">Coberturas de USD 22.000 a USD 70.000 · de 0 a 85 años</p>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section class="contenedor seccion" id="como">
+    <h2 class="titulo t-l">Planificar es así de simple.</h2>
+    <div class="pasos">
+      <div class="paso"><span>01</span><h3>Elige destino y fechas</h3><p>Explora, guarda tus favoritos y compara salidas sin compromiso.</p></div>
+      <div class="paso"><span>02</span><h3>Recibe tu cotización</h3><p>Un asesor te escribe por WhatsApp con opciones de vuelo y hotel.</p></div>
+      <div class="paso"><span>03</span><h3>Paga y viaja tranquilo</h3><p>Transferencia, depósito o link de pago. Te acompañamos hasta tu regreso.</p></div>
+    </div>
+  </section>
+
+  <!-- Opiniones -->
+  <section class="contenedor seccion" aria-label="Opiniones">
+    <div class="opiniones">
+      <figure class="opinion"><blockquote>“Me ayudaron en mi viaje de vacaciones con mi familia a Panamá.”</blockquote><figcaption>Juan · Panamá</figcaption></figure>
+      <figure class="opinion"><blockquote>“Las mejores vacaciones en Galápagos. Sin duda volvería a viajar con ellos.”</blockquote><figcaption>Francisco · Galápagos</figcaption></figure>
+      <figure class="opinion"><blockquote>“El equipo humano detrás de la agencia es increíble.”</blockquote><figcaption>Margarita</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="contenedor seccion" id="faq">
+    <div class="faq">
+      <h2 class="titulo t-m" style="margin-bottom:24px">Preguntas frecuentes</h2>
+      <details><summary>¿Cómo empiezo a planificar mi viaje?</summary><p>Solo necesitas tus fechas. Escríbenos y te damos las mejores opciones para tu destino favorito.</p></details>
+      <details><summary>¿Cómo pago mi paquete o boleto?</summary><p>Por transferencia bancaria, depósito o link de pago.</p></details>
+      <details><summary>¿Atienden grupos?</summary><p>Sí. Para grupos de más de 10 personas preparamos una oferta especial.</p></details>
+      <details><summary>¿Qué soporte tengo durante el viaje?</summary><p>Te acompañamos desde la reserva hasta el final del viaje, estés donde estés.</p></details>
+      <details><summary>¿Puedo cambiar mi paquete?</summary><p>Una vez pagado al 100 % no se puede modificar; los cambios pueden generar multas de hotel o aerolínea.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie-marca">
+      <a href="#inicio" class="pie-logo" aria-label="Volver al inicio"><img src="img/logo.png" alt="" width="88" height="88"></a>
+      <div>
+        <strong style="letter-spacing:.32em;font-size:13px;color:#172D38">CARIBBEAN TRAVEL</strong><br>
+        Av. América y Villalengua, Edificio Módulos PB · Quito<br>
+        +593 98 762 0947
+      </div>
+    </div>
+    <div class="pie-redes">
+      <a href="https://instagram.com/caribbeantravelec/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com/@caribbean.travelec" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.facebook.com/CaribbeanTravelEC/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Ventana emergente: Seguro de viaje -->
+<dialog class="seguro-modal" id="modal-seguro" aria-labelledby="seguro-modal-titulo">
+  <form class="seguro-form" id="form-seguro" novalidate>
+    <button type="button" class="seguro-cerrar" data-cerrar-seguro aria-label="Cerrar">&times;</button>
+
+    <img class="modal-logo" src="img/logo.png" alt="Caribbean Travel" width="56" height="56">
+    <p class="eyebrow" id="seguro-modal-tipo">Seguro de viaje</p>
+    <h2 class="titulo t-m" id="seguro-modal-titulo">Arma tu seguro</h2>
+
+    <div class="seguro-tipo" role="radiogroup" aria-label="Tipo de seguro">
+      <label><input type="radio" name="tipo" value="normal" checked><span>Normal</span></label>
+      <label><input type="radio" name="tipo" value="estudiantil"><span>Estudiantil</span></label>
+    </div>
+
+    <fieldset class="seguro-grupo">
+      <legend>¿A qué continente viajas?</legend>
+      <div class="seguro-opciones">
+        <label><input type="radio" name="continente" value="Europa" required><span>Europa</span></label>
+        <label><input type="radio" name="continente" value="Asia"><span>Asia</span></label>
+        <label><input type="radio" name="continente" value="América"><span>América</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="seguro-grupo">
+      <legend>Edad del viajero</legend>
+      <div class="seguro-opciones">
+        <label><input type="radio" name="edad" value="0-75" required><span>0 a 75 años</span></label>
+        <label><input type="radio" name="edad" value="76-85"><span>76 a 85 años</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="seguro-grupo">
+      <legend>Cobertura</legend>
+      <div class="seguro-planes" id="seguro-planes"></div>
+    </fieldset>
+
+    <label class="seguro-dias">
+      <span>¿Cuántos días?</span>
+      <div class="seguro-contador">
+        <button type="button" data-dias="-1" aria-label="Un día menos">−</button>
+        <input type="number" name="dias" id="seguro-dias" min="1" max="365" value="7" inputmode="numeric" required>
+        <button type="button" data-dias="1" aria-label="Un día más">+</button>
+      </div>
+    </label>
+
+    <div class="seguro-total" id="seguro-total" aria-live="polite"></div>
+    <p class="seguro-error" id="seguro-error" role="alert"></p>
+
+    <button type="submit" class="btn btn-principal seguro-enviar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.5.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+      Solicitar por WhatsApp
+    </button>
+  </form>
+</dialog>
+
+<a class="wa-flotante" href="#" data-wa="Hola, quiero información para viajar" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.5.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="js/datos.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/registro.js"></script>
+<script src="js/carrusel.js" defer></script>
+<script src="js/seguro.js" defer></script>
+<script src="js/viaje-medida.js" defer></script>
+<script src="js/cruceros.js" defer></script>
+<script src="js/transfer.js" defer></script>
+<script src="js/nosotros.js" defer></script>
+</body>
+</html>
