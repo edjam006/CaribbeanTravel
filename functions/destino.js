@@ -107,5 +107,12 @@ export async function onRequest(context) {
     .on('meta[property^="og:"]', quitar)
     .on('meta[name^="twitter:"]', quitar)
     .on("head", { element(e) { e.append(head, { html: true }); } })
+    // Texto propio de cada destino ya en el HTML (antes todos decían "Cargando…"
+    // y Google los veía como páginas iguales). Luego app.js lo completa igual que antes.
+    .on("#d-nombre", { element(e) { e.setInnerContent(d.nombre || ""); } })
+    .on("#d-ruta", { element(e) { if (d.ruta) e.setInnerContent(d.ruta); } })
+    .on("#d-frase", { element(e) { if (d.frase) e.setInnerContent(d.frase); } })
+    .on("#d-descripcion", { element(e) { if (d.descripcion) e.setInnerContent(d.descripcion); } })
+    .on("#r-precio", { element(e) { if (precio != null) e.setInnerContent("$" + precio); } })
     .transform(respuesta);
 }

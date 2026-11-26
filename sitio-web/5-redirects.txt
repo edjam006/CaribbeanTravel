@@ -1,7 +1,0 @@
-# Páginas del sitio anterior que Google todavía tiene indexadas
-/contact     /#contacto   301
-/contact/    /#contacto   301
-
-# Página vieja de Panamá → página de destino actual
-/paquete-panama.html  /destino?d=panama  301
-/paquete-panama       /destino?d=panama  301

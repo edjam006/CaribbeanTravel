@@ -200,7 +200,7 @@
         "</p></div>" +
         '<div class="adm-item-acciones">' +
           '<button type="button" class="btn btn-borde" data-accion="editar" data-id="' + d.id + '">Editar</button>' +
-          '<a class="btn btn-borde" href="../destino.html?d=' + encodeURIComponent(d.slug) + '" target="_blank" rel="noopener">Ver</a>' +
+          '<a class="btn btn-borde" href="/destino?d=' + encodeURIComponent(d.slug) + '" target="_blank" rel="noopener">Ver</a>' +
           '<button type="button" class="btn btn-borde adm-peligro" data-accion="borrar" data-id="' + d.id + '" aria-label="Borrar ' + esc(d.nombre) + '">Borrar</button>' +
         "</div></li>";
     }).join("");
